@@ -121,10 +121,11 @@ public class ProductActivity extends AppCompatActivity {
 
     private void displayImage(String imagePath) {
         if (imagePath != null){
-          compressImageFromFile(imagePath);
+         compressImageFromFile(imagePath);
         }else {
             Toast.makeText(this,"找不到文件",Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private String getImagePath(Uri uri, String selection) {

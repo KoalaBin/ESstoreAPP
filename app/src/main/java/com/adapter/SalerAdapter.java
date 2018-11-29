@@ -22,12 +22,12 @@ import java.util.List;
 
 public class SalerAdapter extends ArrayAdapter<SalerClass> {
     private View view;
-    private int resourceId;
+   // private int resourceId;
     private TextView salerclasses;
     private TextView salercount;
     public SalerAdapter(@NonNull Context context, int resource, List<SalerClass> salerClasses) {
         super(context, resource,salerClasses);
-        resourceId = resource;
+       // resourceId = resource;
     }
 
     @NonNull
@@ -35,14 +35,14 @@ public class SalerAdapter extends ArrayAdapter<SalerClass> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
        SalerClass salerClass = getItem(position);
        if (convertView == null)
-       view = LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
+       view = LayoutInflater.from(getContext()).inflate(R.layout.saler_item,parent,false);
        else{
            view = convertView;
        }
        salerclasses = view.findViewById(R.id.salerclasses);
        salercount = view.findViewById(R.id.salercount);
        salerclasses.setText(salerClass.getSale_class());
-       salercount.setText(salerClass.getSale_count());
+       salercount.setText(String.valueOf(salerClass.getSale_count()));
        return view;
     }
 }

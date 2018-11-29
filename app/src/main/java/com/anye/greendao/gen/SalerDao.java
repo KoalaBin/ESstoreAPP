@@ -27,6 +27,10 @@ public class SalerDao extends AbstractDao<Saler, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Password = new Property(2, String.class, "password", false, "PASSWORD");
+        public final static Property Gender = new Property(3, String.class, "gender", false, "GENDER");
+        public final static Property PhoneNum = new Property(4, String.class, "phoneNum", false, "PHONE_NUM");
+        public final static Property Address = new Property(5, String.class, "address", false, "ADDRESS");
+        public final static Property PicPath = new Property(6, String.class, "picPath", false, "PIC_PATH");
     }
 
 
@@ -44,7 +48,11 @@ public class SalerDao extends AbstractDao<Saler, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"SALER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"NAME\" TEXT NOT NULL ," + // 1: name
-                "\"PASSWORD\" TEXT NOT NULL );"); // 2: password
+                "\"PASSWORD\" TEXT NOT NULL ," + // 2: password
+                "\"GENDER\" TEXT," + // 3: gender
+                "\"PHONE_NUM\" TEXT," + // 4: phoneNum
+                "\"ADDRESS\" TEXT," + // 5: address
+                "\"PIC_PATH\" TEXT);"); // 6: picPath
     }
 
     /** Drops the underlying database table. */
@@ -63,6 +71,26 @@ public class SalerDao extends AbstractDao<Saler, Long> {
         }
         stmt.bindString(2, entity.getName());
         stmt.bindString(3, entity.getPassword());
+ 
+        String gender = entity.getGender();
+        if (gender != null) {
+            stmt.bindString(4, gender);
+        }
+ 
+        String phoneNum = entity.getPhoneNum();
+        if (phoneNum != null) {
+            stmt.bindString(5, phoneNum);
+        }
+ 
+        String address = entity.getAddress();
+        if (address != null) {
+            stmt.bindString(6, address);
+        }
+ 
+        String picPath = entity.getPicPath();
+        if (picPath != null) {
+            stmt.bindString(7, picPath);
+        }
     }
 
     @Override
@@ -75,6 +103,26 @@ public class SalerDao extends AbstractDao<Saler, Long> {
         }
         stmt.bindString(2, entity.getName());
         stmt.bindString(3, entity.getPassword());
+ 
+        String gender = entity.getGender();
+        if (gender != null) {
+            stmt.bindString(4, gender);
+        }
+ 
+        String phoneNum = entity.getPhoneNum();
+        if (phoneNum != null) {
+            stmt.bindString(5, phoneNum);
+        }
+ 
+        String address = entity.getAddress();
+        if (address != null) {
+            stmt.bindString(6, address);
+        }
+ 
+        String picPath = entity.getPicPath();
+        if (picPath != null) {
+            stmt.bindString(7, picPath);
+        }
     }
 
     @Override
@@ -87,7 +135,11 @@ public class SalerDao extends AbstractDao<Saler, Long> {
         Saler entity = new Saler( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // name
-            cursor.getString(offset + 2) // password
+            cursor.getString(offset + 2), // password
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // gender
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // phoneNum
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // address
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // picPath
         );
         return entity;
     }
@@ -97,6 +149,10 @@ public class SalerDao extends AbstractDao<Saler, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.getString(offset + 1));
         entity.setPassword(cursor.getString(offset + 2));
+        entity.setGender(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setPhoneNum(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setAddress(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setPicPath(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override
