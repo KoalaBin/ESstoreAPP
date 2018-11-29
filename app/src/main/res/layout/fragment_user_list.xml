@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fragment.BuyerListFragment"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="编号"
+       android:textSize="20sp"
+       android:layout_marginLeft="30dp"
+       android:layout_marginTop="10dp"/>
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="用户名"
+       android:textSize="20sp"
+       android:layout_marginLeft="32dp"
+       android:layout_marginTop="10dp"/>
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="密码"
+       android:textSize="20sp"
+       android:layout_marginLeft="38dp"
+       android:layout_marginTop="10dp"/>
+</LinearLayout>
+   <ListView
+       android:id="@+id/lv_user"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+   </ListView>
+
+</LinearLayout>
