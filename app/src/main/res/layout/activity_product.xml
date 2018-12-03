@@ -22,8 +22,8 @@
         android:id="@+id/tv_productname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="32dp"
         android:text="商品名称："
         android:textSize="20sp"
@@ -50,8 +50,8 @@
         android:id="@+id/tv_productprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="40dp"
         android:text="商品价格："
         android:textSize="20sp"
@@ -62,8 +62,8 @@
         android:id="@+id/tv_productquantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="40dp"
         android:text="商品类别："
         android:textSize="20sp"
@@ -90,8 +90,8 @@
         android:id="@+id/tv_productdescription"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="40dp"
         android:text="商品描述："
         android:textSize="20sp"
@@ -118,43 +118,68 @@
         app:layout_constraintTop_toBottomOf="@+id/et_productprice"
         app:layout_constraintVertical_bias="0.384" />
 
-    <RadioButton
-        android:id="@+id/rb_fruit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginLeft="124dp"
         android:layout_marginTop="8dp"
-        android:text="Fruit"
-        app:layout_constraintBottom_toTopOf="@+id/et_productdescription"
-        app:layout_constraintStart_toEndOf="@+id/tv_productquantity"
-        app:layout_constraintTop_toBottomOf="@+id/et_productprice" />
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.629">
 
-    <RadioButton
-        android:id="@+id/rb_vegetable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="8dp"
-        android:text="Vegetable"
-        app:layout_constraintBottom_toTopOf="@+id/et_productdescription"
-        app:layout_constraintStart_toEndOf="@+id/rb_fruit"
-        app:layout_constraintTop_toBottomOf="@+id/et_productprice" />
+        <RadioButton
+            android:id="@+id/rb_clothes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Clothes"
+            android:checked="true"/>
 
-    <RadioButton
-        android:id="@+id/rb_corn"
-        android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/rb_fruit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="Fruit" />
+
+        <RadioButton
+            android:id="@+id/rb_drink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Drink" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Corn"
-        app:layout_constraintBottom_toTopOf="@+id/et_productdescription"
-        app:layout_constraintStart_toEndOf="@+id/rb_vegetable"
-        app:layout_constraintTop_toBottomOf="@+id/et_productprice" />
+        android:text="确定"
+        android:background="@color/blue"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_productdescription" />
 
 </android.support.constraint.ConstraintLayout>

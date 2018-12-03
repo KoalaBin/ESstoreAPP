@@ -25,7 +25,10 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.anye.greendao.gen.DaoSession;
+import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
+import com.table.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +39,11 @@ public class ProductActivity extends AppCompatActivity {
     private ImageButton ibtnProduct;
     private EditText etProductName;
     private EditText etProductPrice;
-    private EditText etProductQuantity;
     private EditText etProductDescription;
     private RadioButton rbFruit;
-    private RadioButton rbVegetable;
-    private RadioButton rbCorn;
+    private RadioButton rbClothes;
+    private RadioButton rbDrink;
+    private Button btnOk;
 
     private final int requestCode = 100;
     private final int CHOOSE_PHOTO = 101;
@@ -121,7 +124,8 @@ public class ProductActivity extends AppCompatActivity {
 
     private void displayImage(String imagePath) {
         if (imagePath != null){
-         compressImageFromFile(imagePath);
+         Bitmap bitmap = compressImageFromFile(imagePath);
+         ibtnProduct.setImageBitmap(bitmap);
         }else {
             Toast.makeText(this,"找不到文件",Toast.LENGTH_SHORT).show();
         }
@@ -129,6 +133,7 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     private String getImagePath(Uri uri, String selection) {
+
         String path = null;
         Cursor cursor = getContentResolver().query(uri,null,selection,null,null);
         if (cursor != null){
@@ -142,9 +147,9 @@ public class ProductActivity extends AppCompatActivity {
     private Bitmap compressImageFromFile(String srcPath){
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        Bitmap bitmap = BitmapFactory.decodeFile(srcPath,options);
+        Bitmap bitmap;
 
-        options.inJustDecodeBounds = false;
+       // options.inJustDecodeBounds = false;
         int w = options.outWidth;
         int h = options.outHeight;
         int ww = ibtnProduct.getWidth();
@@ -158,8 +163,9 @@ public class ProductActivity extends AppCompatActivity {
         if (be <= 0)
             be = 1;
         options.inSampleSize = be;
+        options.inJustDecodeBounds = false;
 
-        bitmap = BitmapFactory.decodeFile(srcPath,options);
+        bitmap = BitmapFactory.decodeFile(srcPath);
 
         return bitmap;
 
@@ -171,6 +177,33 @@ public class ProductActivity extends AppCompatActivity {
                 initPermissons();
             }
         });
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String pdName = etProductName.getText().toString();
+                Float pdPrice = Float.parseFloat(etProductPrice.getText().toString());
+                String pdDescription = etProductDescription.getText().toString();
+                int pdQuantity = Constants.TYPE_CLOTHES;
+                if (rbClothes.isChecked())
+                    pdQuantity = Constants.TYPE_CLOTHES;
+                else if (rbFruit.isChecked())
+                    pdQuantity = Constants.TYPE_FRUIIT;
+                else if (rbDrink.isChecked())
+                    pdQuantity = Constants.TYPE_DRINK;
+
+                DaoSession daoSession = MyApplication.getInstances().getDaoSession();
+                ProductDao productDao = daoSession.getProductDao();
+                Product product = new Product();
+                product.setName(pdName);
+                product.setPrice(pdPrice);
+                product.setDescription(pdDescription);
+                product.setQuantity(pdQuantity);
+                productDao.insert(product);
+
+            }
+        });
     }
 
     private void initViews() {
@@ -179,7 +212,8 @@ public class ProductActivity extends AppCompatActivity {
         etProductPrice = findViewById(R.id.et_productprice);
         etProductDescription = findViewById(R.id.et_productdescription);
         rbFruit = findViewById(R.id.rb_fruit);
-        rbVegetable = findViewById(R.id.rb_vegetable);
-        rbCorn = findViewById(R.id.rb_corn);
+        rbClothes = findViewById(R.id.rb_clothes);
+        rbDrink = findViewById(R.id.rb_drink);
+        btnOk = findViewById(R.id.btn_ok);
     }
 }

@@ -9,15 +9,15 @@
         android:id="@+id/salerclasses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:layout_marginLeft="30dp" />
 
     <TextView
         android:id="@+id/salercount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_marginLeft="180dp"/>
+        android:textSize="18sp"
+        android:layout_marginLeft="150dp"/>
 
     <ImageButton
         android:id="@+id/salerenter"
@@ -25,5 +25,7 @@
         android:layout_height="30dp"
         android:src="@drawable/jiantou"
         android:background="#ffffff"
-        android:layout_marginLeft="15dp"/>
+        android:layout_marginLeft="15dp"
+        android:focusable="false"
+        />
 </LinearLayout>

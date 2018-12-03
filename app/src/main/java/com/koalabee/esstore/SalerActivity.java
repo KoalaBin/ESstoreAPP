@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.adapter.SalerAdapter;
@@ -50,6 +51,17 @@ public class SalerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        Intent intent = new Intent(SalerActivity.this,OnSaleActivity.class);
+                        startActivity(intent);
+                }
+            }
+        });
     }
 
     private void initSalerClass() {
@@ -57,5 +69,7 @@ public class SalerActivity extends AppCompatActivity {
         salerClasses.add(onSale);
         SalerClass saleOrder = new SalerClass("销售订单",1);
         salerClasses.add(saleOrder);
+        SalerClass saleData = new SalerClass("修改信息",1);
+        salerClasses.add(saleData);
     }
 }

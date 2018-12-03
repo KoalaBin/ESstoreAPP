@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.koalabee.esstoreapp">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name="com.koalabee.esstore.MyApplication"
         android:allowBackup="true"
@@ -21,7 +23,8 @@
         <activity android:name="com.koalabee.esstore.LoginActivity" />
         <activity android:name="com.koalabee.esstore.AdminActivity" />
         <activity android:name="com.koalabee.esstore.SalerActivity" />
-        <activity android:name="com.koalabee.esstore.ProductActivity"></activity>
+        <activity android:name="com.koalabee.esstore.ProductActivity" />
+        <activity android:name="com.koalabee.esstore.OnSaleActivity"></activity>
     </application>
 
 </manifest>

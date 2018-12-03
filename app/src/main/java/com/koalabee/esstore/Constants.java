@@ -7,6 +7,5 @@ package com.koalabee.esstore;
 public class Constants {
     public static final int TYPE_CLOTHES = 1;
     public static final int TYPE_FRUIIT = 2;
-    public static final int TYPE_CEREAL = 3;
-    public static final int TYPE_DRINK = 4;
+    public static final int TYPE_DRINK = 3;
 }
