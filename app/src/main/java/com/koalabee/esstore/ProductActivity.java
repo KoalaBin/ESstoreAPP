@@ -51,6 +51,8 @@ public class ProductActivity extends AppCompatActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE};
     private List<String> permissionsList = new ArrayList<>();
     private Boolean hasPermissionDismiss = false;
+    public static final String ADD_PRODUCT_SUCCESS = "com.koalabee.esstore.ProductActivity.add_product_success";
+    public static final int ADD_PRODUCT = 5;
 
 
     @Override
@@ -201,6 +203,12 @@ public class ProductActivity extends AppCompatActivity {
                 product.setDescription(pdDescription);
                 product.setQuantity(pdQuantity);
                 productDao.insert(product);
+
+                Intent intent = new Intent();
+                intent.setAction(ProductActivity.ADD_PRODUCT_SUCCESS);
+                intent.putExtra("user_type",ProductActivity.ADD_PRODUCT);
+                intent.setClass(ProductActivity.this,SalerActivity.class);
+                startActivity(intent);
 
             }
         });

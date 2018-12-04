@@ -37,10 +37,6 @@ public class AddUserFragment extends Fragment {
     private View view;
 
 
-    public AddUserFragment() {
-
-    }
-
 
     public static AddUserFragment newInstance(String param1, String param2) {
         AddUserFragment fragment = new AddUserFragment();
