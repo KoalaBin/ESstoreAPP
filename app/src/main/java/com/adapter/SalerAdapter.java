@@ -22,12 +22,11 @@ import java.util.List;
 
 public class SalerAdapter extends ArrayAdapter<SalerClass> {
     private View view;
-   // private int resourceId;
     private TextView salerclasses;
     private TextView salercount;
     public SalerAdapter(@NonNull Context context, int resource, List<SalerClass> salerClasses) {
         super(context, resource,salerClasses);
-       // resourceId = resource;
+
     }
 
     @NonNull

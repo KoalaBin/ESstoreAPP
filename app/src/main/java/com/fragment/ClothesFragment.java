@@ -44,6 +44,7 @@ public class ClothesFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_clothes,container,false);
 
+        return view;
     }
 
 }

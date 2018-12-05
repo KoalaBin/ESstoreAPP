@@ -13,12 +13,11 @@ import android.widget.TextView;
 
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
+import com.bumptech.glide.Glide;
 import com.example.koalabee.esstoreapp.R;
 import com.koalabee.esstore.MyApplication;
 import com.table.Product;
 
-import org.greenrobot.greendao.query.QueryBuilder;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -60,11 +59,13 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        Product product = clothesList.get(position);
+        holder.productTxt.setText(product.getName());
+        Glide.with(context).load(product.getPicpath()).into(holder.productImg);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return clothesList.size();
     }
 }

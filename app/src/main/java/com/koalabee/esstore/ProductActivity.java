@@ -53,6 +53,7 @@ public class ProductActivity extends AppCompatActivity {
     private Boolean hasPermissionDismiss = false;
     public static final String ADD_PRODUCT_SUCCESS = "com.koalabee.esstore.ProductActivity.add_product_success";
     public static final int ADD_PRODUCT = 5;
+    String path = null;
 
 
     @Override
@@ -81,7 +82,7 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     private void openAlbum() {
-        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent,CHOOSE_PHOTO);
     }
@@ -106,7 +107,7 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (CHOOSE_PHOTO == requestCode){
-            if (requestCode == RESULT_OK){
+            if (resultCode == RESULT_OK){
                 handleImageOnKitKat(data);
             }
         }
@@ -136,7 +137,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private String getImagePath(Uri uri, String selection) {
 
-        String path = null;
+
         Cursor cursor = getContentResolver().query(uri,null,selection,null,null);
         if (cursor != null){
             if (cursor.moveToFirst()){
@@ -148,19 +149,18 @@ public class ProductActivity extends AppCompatActivity {
     }
     private Bitmap compressImageFromFile(String srcPath){
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
         Bitmap bitmap;
+        options.inJustDecodeBounds = true;
 
-       // options.inJustDecodeBounds = false;
         int w = options.outWidth;
         int h = options.outHeight;
         int ww = ibtnProduct.getWidth();
         int hh = ibtnProduct.getHeight();
         int be = 1;
         if (w > h && w > ww){
-            be = (int)(options.outWidth/ww);
+            be = options.outWidth/ww;
         }else if (w < h && h > hh){
-            be = (int)(options.outHeight/hh);
+            be = options.outHeight/hh;
         }
         if (be <= 0)
             be = 1;
@@ -198,6 +198,7 @@ public class ProductActivity extends AppCompatActivity {
                 DaoSession daoSession = MyApplication.getInstances().getDaoSession();
                 ProductDao productDao = daoSession.getProductDao();
                 Product product = new Product();
+                product.setPicpath(path);
                 product.setName(pdName);
                 product.setPrice(pdPrice);
                 product.setDescription(pdDescription);
@@ -209,6 +210,7 @@ public class ProductActivity extends AppCompatActivity {
                 intent.putExtra("user_type",ProductActivity.ADD_PRODUCT);
                 intent.setClass(ProductActivity.this,SalerActivity.class);
                 startActivity(intent);
+                ProductActivity.this.sendBroadcast(intent);
 
             }
         });
