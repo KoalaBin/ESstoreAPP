@@ -4,11 +4,24 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.adapter.ClothesAdapter;
+import com.anye.greendao.gen.DaoSession;
+import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
+import com.koalabee.esstore.Constants;
+import com.koalabee.esstore.MyApplication;
+import com.table.Product;
+
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ClothesFragment extends Fragment {
@@ -17,6 +30,9 @@ public class ClothesFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private View view;
+    private RecyclerView rvOnsalePrduct;
+    private List<Product> clothesList = new ArrayList<>();
+    private ClothesAdapter clothesAdapter;
     private String mParam1;
     private String mParam2;
 
@@ -43,7 +59,14 @@ public class ClothesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_clothes,container,false);
-
+        rvOnsalePrduct = view.findViewById(R.id.rv_onsaleproduct);
+        DaoSession daoSession = MyApplication.getInstances().getDaoSession();
+        ProductDao productDao = daoSession.getProductDao();
+        clothesList = productDao.queryBuilder().where(ProductDao.Properties.Quantity.eq(Constants.TYPE_CLOTHES)).list();
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
+        rvOnsalePrduct.setLayoutManager(layoutManager);
+        clothesAdapter = new ClothesAdapter(clothesList);
+        rvOnsalePrduct.setAdapter(clothesAdapter);
         return view;
     }
 

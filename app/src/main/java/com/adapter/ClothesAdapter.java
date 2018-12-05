@@ -39,8 +39,6 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
             productImg = view.findViewById(R.id.img_product);
             productTxt = view.findViewById(R.id.txt_product);
 
-            DaoSession daoSession = MyApplication.getInstances().getDaoSession();
-            ProductDao productDao = daoSession.getProductDao();
         }
     }
     public ClothesAdapter(List<Product> clothesList){
