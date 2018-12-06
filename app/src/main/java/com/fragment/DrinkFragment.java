@@ -1,23 +1,37 @@
 package com.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.adapter.DrinkAdapter;
+import com.adapter.FruitAdapter;
+import com.anye.greendao.gen.DaoSession;
+import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
+import com.koalabee.esstore.Constants;
+import com.koalabee.esstore.MyApplication;
+import com.table.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DrinkFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
+    private View view;
+    private RecyclerView rvOnsalePrduct;
+    private List<Product> drinkList = new ArrayList<>();
+    private DrinkAdapter drinkAdapter;
     private String mParam1;
     private String mParam2;
+
 
 
     public static DrinkFragment newInstance(String param1, String param2) {
@@ -37,11 +51,18 @@ public class DrinkFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_drink, container, false);
+        view = inflater.inflate(R.layout.fragment_clothes,container,false);
+        rvOnsalePrduct = view.findViewById(R.id.rv_onsaleproduct);
+        DaoSession daoSession = MyApplication.getInstances().getDaoSession();
+        ProductDao productDao = daoSession.getProductDao();
+        drinkList = productDao.queryBuilder().where(ProductDao.Properties.Quantity.eq(Constants.TYPE_DRINK)).list();
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
+        rvOnsalePrduct.setLayoutManager(layoutManager);
+        drinkAdapter = new DrinkAdapter(drinkList);
+        rvOnsalePrduct.setAdapter(drinkAdapter);
+        return view;
     }
-
 }

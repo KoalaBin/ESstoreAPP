@@ -3,6 +3,8 @@ package com.koalabee.esstore;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +38,36 @@ public class OnSaleActivity extends AppCompatActivity {
         clothes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction .hide(fruitFragment)
+                                    .hide(drinkFragment)
+                                    .show(clothesFragment)
+                                    .commit();
+            }
+        });
 
+        fruit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction .hide(clothesFragment)
+                        .hide(drinkFragment)
+                        .show(fruitFragment)
+                        .commit();
+            }
+        });
+
+        drink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction .hide(fruitFragment)
+                        .hide(clothesFragment)
+                        .show(drinkFragment)
+                        .commit();
             }
         });
     }
@@ -45,6 +76,20 @@ public class OnSaleActivity extends AppCompatActivity {
         clothes = findViewById(R.id.clothes);
         fruit = findViewById(R.id.fruit);
         drink = findViewById(R.id.drink);
+
+        clothesFragment = ClothesFragment.newInstance(null,null);
+        fruitFragment = FruitFragment.newInstance(null,null);
+        drinkFragment = DrinkFragment.newInstance(null,null);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction .add(R.id.f2_content,clothesFragment)
+                            .add(R.id.f2_content,fruitFragment)
+                            .add(R.id.f2_content,drinkFragment)
+                            .hide(fruitFragment)
+                            .hide(drinkFragment)
+                            .commit();
+
     }
 
 

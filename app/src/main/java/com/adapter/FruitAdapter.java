@@ -1,7 +1,6 @@
 package com.adapter;
 
 import android.content.Context;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -19,18 +18,15 @@ import com.koalabee.esstore.Constants;
 import com.koalabee.esstore.MyApplication;
 import com.table.Product;
 
-
-import org.greenrobot.greendao.query.QueryBuilder;
-
 import java.util.List;
 
 /**
- * Created by Koala Bee on 2018/12/3.
+ * Created by Koala Bee on 2018/12/6.
  */
 
-public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHolder> {
+public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
     private Context context;
-    private List<Product> clothesList;
+    private List<Product> fruitList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
@@ -44,8 +40,8 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
 
         }
     }
-    public ClothesAdapter(List<Product> clothesList){
-        this.clothesList = clothesList;
+    public FruitAdapter(List<Product> fruitList){
+        this.fruitList = fruitList;
     }
     @NonNull
     @Override
@@ -55,21 +51,23 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
         }
 
         View view = LayoutInflater.from(context).inflate(R.layout.product_item,parent,false);
-        return new ViewHolder(view);
+        return new FruitAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DaoSession daoSession = MyApplication.getInstances().getDaoSession();
         ProductDao productDao = daoSession.getProductDao();
-        clothesList = productDao.queryBuilder().where(ProductDao.Properties.Quantity.eq(Constants.TYPE_CLOTHES)).list();
-        Product product = clothesList.get(position);
+        fruitList = productDao.queryBuilder().where(ProductDao.Properties.Quantity.eq(Constants.TYPE_FRUIIT)).list();
+        Product product = fruitList.get(position);
         holder.productTxt.setText(product.getName());
         Glide.with(context).load(product.getPicpath()).into(holder.productImg);
     }
 
+
+
     @Override
     public int getItemCount() {
-        return clothesList.size();
+        return fruitList.size();
     }
 }

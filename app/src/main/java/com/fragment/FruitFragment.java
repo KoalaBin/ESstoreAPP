@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.adapter.ClothesAdapter;
+import com.adapter.FruitAdapter;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
@@ -30,7 +31,7 @@ public class FruitFragment extends Fragment {
     private View view;
     private RecyclerView rvOnsalePrduct;
     private List<Product> fruitList = new ArrayList<>();
-    private FruitFragment fruitFragment;
+    private FruitAdapter fruitAdapter;
     private String mParam1;
     private String mParam2;
 
@@ -63,8 +64,8 @@ public class FruitFragment extends Fragment {
         fruitList = productDao.queryBuilder().where(ProductDao.Properties.Quantity.eq(Constants.TYPE_FRUIIT)).list();
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         rvOnsalePrduct.setLayoutManager(layoutManager);
-         = new ClothesAdapter(productList);
-        rvOnsalePrduct.setAdapter(clothesAdapter);
+        fruitAdapter = new FruitAdapter(fruitList);
+        rvOnsalePrduct.setAdapter(fruitAdapter);
         return view;
     }
 
