@@ -24,7 +24,8 @@
         <activity android:name="com.koalabee.esstore.AdminActivity" />
         <activity android:name="com.koalabee.esstore.SalerActivity" />
         <activity android:name="com.koalabee.esstore.ProductActivity" />
-        <activity android:name="com.koalabee.esstore.OnSaleActivity"></activity>
+        <activity android:name="com.koalabee.esstore.OnSaleActivity" />
+        <activity android:name="com.koalabee.esstore.SalerInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@ public class Saler {
     private String name;
     @NotNull
     private String password;
+
     private String gender;
 
     private String phoneNum;
@@ -95,5 +96,6 @@ public class Saler {
     public void setPicPath(String picPath) {
         this.picPath = picPath;
     }
+
 
 }

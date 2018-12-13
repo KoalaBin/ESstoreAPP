@@ -27,10 +27,11 @@ public class ProductDao extends AbstractDao<Product, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Quantity = new Property(2, Integer.class, "quantity", false, "QUANTITY");
-        public final static Property Price = new Property(3, Float.class, "price", false, "PRICE");
-        public final static Property Description = new Property(4, String.class, "description", false, "DESCRIPTION");
-        public final static Property SaleId = new Property(5, Long.class, "saleId", false, "SALE_ID");
-        public final static Property Picpath = new Property(6, String.class, "picpath", false, "PICPATH");
+        public final static Property Category = new Property(3, Integer.class, "category", false, "CATEGORY");
+        public final static Property Price = new Property(4, Float.class, "price", false, "PRICE");
+        public final static Property Description = new Property(5, String.class, "description", false, "DESCRIPTION");
+        public final static Property SaleId = new Property(6, Long.class, "saleId", false, "SALE_ID");
+        public final static Property Picpath = new Property(7, String.class, "picpath", false, "PICPATH");
     }
 
 
@@ -49,10 +50,11 @@ public class ProductDao extends AbstractDao<Product, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"NAME\" TEXT NOT NULL ," + // 1: name
                 "\"QUANTITY\" INTEGER NOT NULL ," + // 2: quantity
-                "\"PRICE\" REAL NOT NULL ," + // 3: price
-                "\"DESCRIPTION\" TEXT NOT NULL ," + // 4: description
-                "\"SALE_ID\" INTEGER NOT NULL ," + // 5: saleId
-                "\"PICPATH\" TEXT NOT NULL );"); // 6: picpath
+                "\"CATEGORY\" INTEGER NOT NULL ," + // 3: category
+                "\"PRICE\" REAL NOT NULL ," + // 4: price
+                "\"DESCRIPTION\" TEXT NOT NULL ," + // 5: description
+                "\"SALE_ID\" INTEGER NOT NULL ," + // 6: saleId
+                "\"PICPATH\" TEXT);"); // 7: picpath
     }
 
     /** Drops the underlying database table. */
@@ -71,10 +73,15 @@ public class ProductDao extends AbstractDao<Product, Long> {
         }
         stmt.bindString(2, entity.getName());
         stmt.bindLong(3, entity.getQuantity());
-        stmt.bindDouble(4, entity.getPrice());
-        stmt.bindString(5, entity.getDescription());
-        stmt.bindLong(6, entity.getSaleId());
-        stmt.bindString(7, entity.getPicpath());
+        stmt.bindLong(4, entity.getCategory());
+        stmt.bindDouble(5, entity.getPrice());
+        stmt.bindString(6, entity.getDescription());
+        stmt.bindLong(7, entity.getSaleId());
+ 
+        String picpath = entity.getPicpath();
+        if (picpath != null) {
+            stmt.bindString(8, picpath);
+        }
     }
 
     @Override
@@ -87,10 +94,15 @@ public class ProductDao extends AbstractDao<Product, Long> {
         }
         stmt.bindString(2, entity.getName());
         stmt.bindLong(3, entity.getQuantity());
-        stmt.bindDouble(4, entity.getPrice());
-        stmt.bindString(5, entity.getDescription());
-        stmt.bindLong(6, entity.getSaleId());
-        stmt.bindString(7, entity.getPicpath());
+        stmt.bindLong(4, entity.getCategory());
+        stmt.bindDouble(5, entity.getPrice());
+        stmt.bindString(6, entity.getDescription());
+        stmt.bindLong(7, entity.getSaleId());
+ 
+        String picpath = entity.getPicpath();
+        if (picpath != null) {
+            stmt.bindString(8, picpath);
+        }
     }
 
     @Override
@@ -104,10 +116,11 @@ public class ProductDao extends AbstractDao<Product, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // name
             cursor.getInt(offset + 2), // quantity
-            cursor.getFloat(offset + 3), // price
-            cursor.getString(offset + 4), // description
-            cursor.getLong(offset + 5), // saleId
-            cursor.getString(offset + 6) // picpath
+            cursor.getInt(offset + 3), // category
+            cursor.getFloat(offset + 4), // price
+            cursor.getString(offset + 5), // description
+            cursor.getLong(offset + 6), // saleId
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // picpath
         );
         return entity;
     }
@@ -117,10 +130,11 @@ public class ProductDao extends AbstractDao<Product, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.getString(offset + 1));
         entity.setQuantity(cursor.getInt(offset + 2));
-        entity.setPrice(cursor.getFloat(offset + 3));
-        entity.setDescription(cursor.getString(offset + 4));
-        entity.setSaleId(cursor.getLong(offset + 5));
-        entity.setPicpath(cursor.getString(offset + 6));
+        entity.setCategory(cursor.getInt(offset + 3));
+        entity.setPrice(cursor.getFloat(offset + 4));
+        entity.setDescription(cursor.getString(offset + 5));
+        entity.setSaleId(cursor.getLong(offset + 6));
+        entity.setPicpath(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     @Override

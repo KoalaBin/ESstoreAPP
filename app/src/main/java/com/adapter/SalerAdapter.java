@@ -39,9 +39,13 @@ public class SalerAdapter extends ArrayAdapter<SalerClass> {
            view = convertView;
        }
        salerclasses = view.findViewById(R.id.salerclasses);
-       salercount = view.findViewById(R.id.salercount);
        salerclasses.setText(salerClass.getSale_class());
-       salercount.setText(String.valueOf(salerClass.getSale_count()));
        return view;
+    }
+
+    @Nullable
+    @Override
+    public SalerClass getItem(int position) {
+        return super.getItem(position);
     }
 }

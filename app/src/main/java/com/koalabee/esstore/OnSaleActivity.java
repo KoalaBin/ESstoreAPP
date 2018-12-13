@@ -3,6 +3,7 @@ package com.koalabee.esstore;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -15,12 +16,14 @@ import com.example.koalabee.esstoreapp.R;
 import com.fragment.ClothesFragment;
 import com.fragment.DrinkFragment;
 import com.fragment.FruitFragment;
+import com.table.Product;
 
 public class OnSaleActivity extends AppCompatActivity {
     private Button clothes,fruit,drink;
     private ClothesFragment clothesFragment;
     private FruitFragment fruitFragment;
     private DrinkFragment drinkFragment;
+    private AddProductBroadcast addProductBroadcast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,10 @@ public class OnSaleActivity extends AppCompatActivity {
         }
         initViews();
         initEvents();
+
+        IntentFilter intentFilter = new IntentFilter(ProductActivity.ADD_PRODUCT_SUCCESS);
+        addProductBroadcast = new AddProductBroadcast();
+        registerReceiver(addProductBroadcast,intentFilter);
     }
 
     private void initEvents() {
@@ -98,10 +105,21 @@ public class OnSaleActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             int userType = intent.getIntExtra("user_type",-1);
-            if (userType == ProductActivity.ADD_PRODUCT){
-
+            if (userType == ProductActivity.ADD_CLOTHES){
+                clothesFragment.updateClothesList();
+            }else if (userType == ProductActivity.ADD_FRUITS){
+                fruitFragment.updateFruitList();
+            }else if (userType == ProductActivity.ADD_DRINK){
+                drinkFragment.updateDrinkList();
             }
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(addProductBroadcast);
+        super.onDestroy();
+
     }
 }

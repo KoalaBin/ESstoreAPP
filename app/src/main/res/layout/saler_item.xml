@@ -3,21 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/salerclasses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:layout_marginLeft="30dp" />
-
-    <TextView
-        android:id="@+id/salercount"
-        android:layout_width="wrap_content"
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginLeft="150dp"/>
+        android:layout_weight="1"
+        android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/salerenter"
@@ -25,7 +29,8 @@
         android:layout_height="30dp"
         android:src="@drawable/jiantou"
         android:background="#ffffff"
-        android:layout_marginLeft="15dp"
-        android:focusable="false"
+        android:layout_marginRight="15dp"
+        android:layout_gravity="right"
         />
+    </LinearLayout>
 </LinearLayout>

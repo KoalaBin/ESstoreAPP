@@ -61,7 +61,7 @@ public class FruitFragment extends Fragment {
         rvOnsalePrduct = view.findViewById(R.id.rv_onsaleproduct);
         DaoSession daoSession = MyApplication.getInstances().getDaoSession();
         ProductDao productDao = daoSession.getProductDao();
-        fruitList = productDao.queryBuilder().where(ProductDao.Properties.Quantity.eq(Constants.TYPE_FRUIIT)).list();
+        fruitList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_FRUIIT)).list();
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         rvOnsalePrduct.setLayoutManager(layoutManager);
         fruitAdapter = new FruitAdapter(fruitList);
@@ -69,6 +69,13 @@ public class FruitFragment extends Fragment {
         return view;
     }
 
+    public void updateFruitList(){
+        DaoSession daoSession = MyApplication.getInstances().getDaoSession();
+        ProductDao productDao = daoSession.getProductDao();
+        fruitList.clear();
+        fruitList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_FRUIIT)).list();
+        fruitAdapter.notifyDataSetChanged();
+    }
 
     }
 

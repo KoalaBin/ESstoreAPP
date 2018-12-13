@@ -17,6 +17,8 @@ import com.koalabee.esstore.Constants;
 import com.koalabee.esstore.MyApplication;
 import com.table.Product;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,11 +60,19 @@ public class DrinkFragment extends Fragment {
         rvOnsalePrduct = view.findViewById(R.id.rv_onsaleproduct);
         DaoSession daoSession = MyApplication.getInstances().getDaoSession();
         ProductDao productDao = daoSession.getProductDao();
-        drinkList = productDao.queryBuilder().where(ProductDao.Properties.Quantity.eq(Constants.TYPE_DRINK)).list();
+        drinkList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_DRINK)).list();
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         rvOnsalePrduct.setLayoutManager(layoutManager);
         drinkAdapter = new DrinkAdapter(drinkList);
         rvOnsalePrduct.setAdapter(drinkAdapter);
         return view;
+    }
+
+    public void updateDrinkList(){
+        DaoSession daoSession = MyApplication.getInstances().getDaoSession();
+        ProductDao productDao = daoSession.getProductDao();
+        drinkList.clear();
+        drinkList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_DRINK)).list();
+        drinkAdapter.notifyDataSetChanged();
     }
 }

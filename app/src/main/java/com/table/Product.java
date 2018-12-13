@@ -17,20 +17,22 @@ public class Product {
     @NotNull
     private Integer quantity;
     @NotNull
+    private Integer category;
+    @NotNull
     private Float price;
     @NotNull
     private String description;
     @NotNull
     private Long saleId;
-    @NotNull
     private String picpath;
-    @Generated(hash = 608081670)
+    @Generated(hash = 660869739)
     public Product(Long id, @NotNull String name, @NotNull Integer quantity,
-            @NotNull Float price, @NotNull String description, @NotNull Long saleId,
-            @NotNull String picpath) {
+            @NotNull Integer category, @NotNull Float price,
+            @NotNull String description, @NotNull Long saleId, String picpath) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
+        this.category = category;
         this.price = price;
         this.description = description;
         this.saleId = saleId;
@@ -51,16 +53,22 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
-    public int getQuantity() {
+    public Integer getQuantity() {
         return this.quantity;
     }
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-    public float getPrice() {
+    public Integer getCategory() {
+        return this.category;
+    }
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+    public Float getPrice() {
         return this.price;
     }
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
     public String getDescription() {
@@ -81,10 +89,5 @@ public class Product {
     public void setPicpath(String picpath) {
         this.picpath = picpath;
     }
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-    public void setPrice(Float price) {
-        this.price = price;
-    }
+
 }

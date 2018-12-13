@@ -77,7 +77,7 @@ public class SalerListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return salers.get(position).getId();
     }
 
     public interface OnDeleteClickListener{

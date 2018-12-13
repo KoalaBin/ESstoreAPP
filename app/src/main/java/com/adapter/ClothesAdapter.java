@@ -62,7 +62,7 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DaoSession daoSession = MyApplication.getInstances().getDaoSession();
         ProductDao productDao = daoSession.getProductDao();
-        clothesList = productDao.queryBuilder().where(ProductDao.Properties.Quantity.eq(Constants.TYPE_CLOTHES)).list();
+        clothesList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_CLOTHES)).list();
         Product product = clothesList.get(position);
         holder.productTxt.setText(product.getName());
         Glide.with(context).load(product.getPicpath()).into(holder.productImg);

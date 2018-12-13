@@ -58,7 +58,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DaoSession daoSession = MyApplication.getInstances().getDaoSession();
         ProductDao productDao = daoSession.getProductDao();
-        fruitList = productDao.queryBuilder().where(ProductDao.Properties.Quantity.eq(Constants.TYPE_FRUIIT)).list();
+        fruitList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_FRUIIT)).list();
         Product product = fruitList.get(position);
         holder.productTxt.setText(product.getName());
         Glide.with(context).load(product.getPicpath()).into(holder.productImg);

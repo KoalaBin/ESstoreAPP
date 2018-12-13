@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
+import com.fragment.ClothesFragment;
 import com.table.Product;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class ProductActivity extends AppCompatActivity {
     private ImageButton ibtnProduct;
     private EditText etProductName;
     private EditText etProductPrice;
+    private EditText etProductQuantity;
     private EditText etProductDescription;
     private RadioButton rbFruit;
     private RadioButton rbClothes;
@@ -52,8 +54,11 @@ public class ProductActivity extends AppCompatActivity {
     private List<String> permissionsList = new ArrayList<>();
     private Boolean hasPermissionDismiss = false;
     public static final String ADD_PRODUCT_SUCCESS = "com.koalabee.esstore.ProductActivity.add_product_success";
-    public static final int ADD_PRODUCT = 5;
+    public static final int ADD_CLOTHES = 5;
+    public static final int ADD_FRUITS = 6;
+    public static final int ADD_DRINK = 7;
     String path = null;
+
 
 
     @Override
@@ -184,34 +189,52 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent1 = new Intent();
+                Long saleid = intent1.getLongExtra("saleid",-1);
                 String pdName = etProductName.getText().toString();
                 Float pdPrice = Float.parseFloat(etProductPrice.getText().toString());
                 String pdDescription = etProductDescription.getText().toString();
-                int pdQuantity = Constants.TYPE_CLOTHES;
+                int pdQuantity = Integer.valueOf(etProductQuantity.getText().toString());
+                int pdCatetory = Constants.TYPE_CLOTHES;
                 if (rbClothes.isChecked())
-                    pdQuantity = Constants.TYPE_CLOTHES;
+                    pdCatetory = Constants.TYPE_CLOTHES;
                 else if (rbFruit.isChecked())
-                    pdQuantity = Constants.TYPE_FRUIIT;
+                    pdCatetory = Constants.TYPE_FRUIIT;
                 else if (rbDrink.isChecked())
-                    pdQuantity = Constants.TYPE_DRINK;
+                    pdCatetory = Constants.TYPE_DRINK;
 
                 DaoSession daoSession = MyApplication.getInstances().getDaoSession();
                 ProductDao productDao = daoSession.getProductDao();
                 Product product = new Product();
                 product.setPicpath(path);
+                product.setSaleId(saleid);
                 product.setName(pdName);
                 product.setPrice(pdPrice);
                 product.setDescription(pdDescription);
+                product.setCategory(pdCatetory);
                 product.setQuantity(pdQuantity);
                 productDao.insert(product);
 
-                Intent intent = new Intent();
-                intent.setAction(ProductActivity.ADD_PRODUCT_SUCCESS);
-                intent.putExtra("user_type",ProductActivity.ADD_PRODUCT);
-                intent.setClass(ProductActivity.this,SalerActivity.class);
-                startActivity(intent);
-                ProductActivity.this.sendBroadcast(intent);
-
+                if (product.getCategory() == Constants.TYPE_CLOTHES){
+                    Intent intent = new Intent();
+                    intent.setAction(ProductActivity.ADD_PRODUCT_SUCCESS);
+                    intent.putExtra("user_type",ProductActivity.ADD_CLOTHES);
+                    ProductActivity.this.sendBroadcast(intent);
+                    finish();
+                }else if (product.getCategory() == Constants.TYPE_FRUIIT){
+                    Intent intent = new Intent();
+                    intent.setAction(ProductActivity.ADD_PRODUCT_SUCCESS);
+                    intent.putExtra("user_type",ProductActivity.ADD_FRUITS);
+                    ProductActivity.this.sendBroadcast(intent);
+                    finish();
+                }else if (product.getCategory() == Constants.TYPE_DRINK){
+                    Intent intent = new Intent();
+                    intent.setAction(ProductActivity.ADD_PRODUCT_SUCCESS);
+                    intent.putExtra("user_type",ProductActivity.ADD_DRINK);
+                    ProductActivity.this.sendBroadcast(intent);
+                    finish();
+                }
+                Toast.makeText(ProductActivity.this,"商品上架成功",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -221,6 +244,7 @@ public class ProductActivity extends AppCompatActivity {
         etProductName = findViewById(R.id.et_productname);
         etProductPrice = findViewById(R.id.et_productprice);
         etProductDescription = findViewById(R.id.et_productdescription);
+        etProductQuantity = findViewById(R.id.et_productquantity);
         rbFruit = findViewById(R.id.rb_fruit);
         rbClothes = findViewById(R.id.rb_clothes);
         rbDrink = findViewById(R.id.rb_drink);
