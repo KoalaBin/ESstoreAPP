@@ -1,7 +1,16 @@
 package com.koalabee.esstore;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +21,12 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.anye.greendao.gen.SalerDao;
+import com.bumptech.glide.Glide;
 import com.example.koalabee.esstoreapp.R;
 import com.table.Saler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -24,6 +37,13 @@ public class SalerInfoActivity extends AppCompatActivity {
     private EditText salerInfoName, salerInfoPassowrd, salerInfoPhoneNum, salerInfoAddresss, salerInfoUqPwd;
     private RadioButton salerInfoMan, salerInfoWoman;
 
+    private final int requestCode = 100;
+    private final int CHOOSE_PHOTO = 101;
+    private String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE};
+    private List<String> permissionsList = new ArrayList<>();
+    private Boolean hasPermissionDismiss = false;
+    private String path = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +58,93 @@ public class SalerInfoActivity extends AppCompatActivity {
         initEvents();
     }
 
+
+    private void initPermissons() {
+        permissionsList.clear();
+        for (int i = 0;i<permissions.length;i++){
+            if (ContextCompat.checkSelfPermission(SalerInfoActivity.this,permissions[i])
+                    != PackageManager.PERMISSION_GRANTED){
+                permissionsList.add(permissions[i]);
+            }
+        }
+        if (permissionsList.size()>0){
+            ActivityCompat.requestPermissions(SalerInfoActivity.this,permissions,requestCode);
+        }else {
+            openAlbum();
+        }
+    }
+
+    private void openAlbum() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,CHOOSE_PHOTO);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        if (this.requestCode == requestCode){
+            for (int i =0;i<grantResults.length;i++){
+                if (grantResults[i] == -1){
+                    hasPermissionDismiss = true;
+                }
+            }
+            if (hasPermissionDismiss){
+                finish();
+            }else {
+                openAlbum();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (CHOOSE_PHOTO == requestCode){
+            if (resultCode == RESULT_OK){
+                handleImageOnKitKat(data);
+            }
+        }
+    }
+
+    private void handleImageOnKitKat(Intent data) {
+        String imagePath = null;
+        Uri uri = data.getData();
+        if ("content".equalsIgnoreCase(uri.getScheme())){
+            imagePath = getImagePath(uri,null);
+
+        }else if ("file".equalsIgnoreCase(uri.getScheme())){
+            imagePath = uri.getPath();
+        }
+
+        displayImage(imagePath);
+    }
+
+    private String getImagePath(Uri uri, String selection) {
+
+        Cursor cursor = getContentResolver().query(uri,null,selection,null,null);
+        if (cursor != null){
+            if (cursor.moveToFirst()){
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
+
+    private void displayImage(String path){
+        Glide.with(SalerInfoActivity.this).load(path).into(salerinfoPic);
+    }
+
     private void initEvents() {
-        Long salerid = getIntent().getLongExtra("salerid",-1);
+        final Long saleId = getIntent().getLongExtra("salerid",-1);
         SalerDao salerDao = MyApplication.getInstances().getDaoSession().getSalerDao();
-        Saler saler = salerDao.queryBuilder().where(SalerDao.Properties.Id.eq(salerid)).unique();
-        Bitmap bitmap = BitmapFactory.decodeFile(saler.getPicPath());
-        salerinfoPic.setImageBitmap(bitmap);
+        Saler saler = salerDao.queryBuilder().where(SalerDao.Properties.Id.eq(saleId)).unique();
+        if (saler.getPicPath() == null)
+            salerinfoPic.setImageResource(R.mipmap.ic_launcher);
+        else{
+            Bitmap bitmap = BitmapFactory.decodeFile(saler.getPicPath());
+            salerinfoPic.setImageBitmap(bitmap);
+        }
         salerInfoName.setText(saler.getName());
         salerInfoPassowrd.setText(saler.getPassword());
 
@@ -57,6 +158,12 @@ public class SalerInfoActivity extends AppCompatActivity {
         else
             salerInfoAddresss.setText(saler.getAddress());
 
+        salerinfoPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initPermissons();
+            }
+        });
         salerInfoOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,11 +175,11 @@ public class SalerInfoActivity extends AppCompatActivity {
                 String saleraddress = salerInfoAddresss.getText().toString();
 
                 SalerDao salerDao = MyApplication.getInstances().getDaoSession().getSalerDao();
-                Saler saler = new Saler();
+                Saler saler = salerDao.queryBuilder().where(SalerDao.Properties.Id.eq(saleId)).unique();
 
                 if (salername == null || salerpwd == null || saleruqpwd == null)
                     Toast.makeText(SalerInfoActivity.this,"用户名、密码或确认密码不能为空！",Toast.LENGTH_SHORT).show();
-                else if (salerpwd != saleruqpwd)
+                else if (!(salerpwd.equals(saleruqpwd)))
                     Toast.makeText(SalerInfoActivity.this,"两次密码输入不一致！",Toast.LENGTH_SHORT).show();
                  else{
                      saler.setName(salername);
@@ -85,6 +192,7 @@ public class SalerInfoActivity extends AppCompatActivity {
                          saler.setGender(null);
                      saler.setPhoneNum(salerphone);
                      saler.setAddress(saleraddress);
+                     saler.setPicPath(path);
                      salerDao.update(saler);
                      Toast.makeText(SalerInfoActivity.this,"信息修改成功！",Toast.LENGTH_SHORT).show();
                      finish();

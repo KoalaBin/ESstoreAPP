@@ -55,7 +55,7 @@ public class SalerActivity extends AppCompatActivity {
     private void setHeadpicName() {
         Long saleId = getIntent().getLongExtra("salerid",-1);
         SalerDao salerDao = MyApplication.getInstances().getDaoSession().getSalerDao();
-        Saler saler =salerDao.queryBuilder().where(SalerDao.Properties.Id.eq(saleId)).unique();
+        Saler saler = salerDao.queryBuilder().where(SalerDao.Properties.Id.eq(saleId)).unique();
         if(saler.getPicPath() == null){
             salerName.setText(saler.getName());
             headPic.setImageResource(R.mipmap.ic_launcher);
@@ -94,8 +94,10 @@ public class SalerActivity extends AppCompatActivity {
                         break;
                     //case 1:
                     case 2:
-                        Intent intent1 = new Intent(SalerActivity.this,SalerInfoActivity.class);
-                        startActivity(intent1);
+                        Long salerid = getIntent().getLongExtra("salerid",-1);
+                        Intent salerinfo = new Intent(SalerActivity.this,SalerInfoActivity.class);
+                        salerinfo.putExtra("salerid",salerid);
+                        startActivity(salerinfo);
 
 
                 }
