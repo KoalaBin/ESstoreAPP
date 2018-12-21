@@ -9,15 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.adapter.DrinkAdapter;
-import com.adapter.FruitAdapter;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
-import com.koalabee.esstore.Constants;
-import com.koalabee.esstore.MyApplication;
+import com.Constants;
+import com.MyApplication;
 import com.table.Product;
-
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;

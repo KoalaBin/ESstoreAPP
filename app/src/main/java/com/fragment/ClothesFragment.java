@@ -1,7 +1,5 @@
 package com.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,11 +12,9 @@ import com.adapter.ClothesAdapter;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
-import com.koalabee.esstore.Constants;
-import com.koalabee.esstore.MyApplication;
+import com.Constants;
+import com.MyApplication;
 import com.table.Product;
-
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;

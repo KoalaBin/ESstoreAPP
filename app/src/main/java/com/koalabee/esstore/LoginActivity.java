@@ -1,7 +1,6 @@
 package com.koalabee.esstore;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,11 +9,14 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.MyApplication;
 import com.anye.greendao.gen.AdminDao;
+import com.anye.greendao.gen.BuyerDao;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.SalerDao;
 import com.example.koalabee.esstoreapp.R;
 import com.table.Admin;
+import com.table.Buyer;
 import com.table.Saler;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -57,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     String name=ed_account.getText().toString();
                     String password=ed_pwd.getText().toString();
 
-                    DaoSession daoSession=MyApplication.getInstances().getDaoSession();
+                    DaoSession daoSession= MyApplication.getInstances().getDaoSession();
                     AdminDao adminDao=daoSession.getAdminDao();
                     QueryBuilder<Admin> builder=adminDao.queryBuilder().where(AdminDao.Properties.Name.eq(name),
                     AdminDao.Properties.Password.eq(password));
@@ -66,9 +68,8 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(LoginActivity.this,AdminActivity.class);
                         startActivity(intent);
-                    }else{
+                    }else
                         Toast.makeText(LoginActivity.this,"账号或密码错误",Toast.LENGTH_SHORT).show();
-                    }
                 }else if (sale.isChecked()){
                     String name = ed_account.getText().toString();
                     String password = ed_pwd.getText().toString();
@@ -83,10 +84,26 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this,SalerActivity.class);
                         intent.putExtra("salerid",saler.getId());
                         startActivity(intent);
-                    }else {
+                    }else
                         Toast.makeText(LoginActivity.this,"账号或密码错误",Toast.LENGTH_SHORT).show();
-                    }
 
+
+                }else if (buy.isChecked()){
+                    String name = ed_account.getText().toString();
+                    String password = ed_pwd.getText().toString();
+
+                    DaoSession daoSession = MyApplication.getInstances().getDaoSession();
+                    BuyerDao buyerDao = daoSession.getBuyerDao();
+                    QueryBuilder<Buyer> queryBuilder = buyerDao.queryBuilder().where(BuyerDao.Properties.Name.eq(name),
+                            BuyerDao.Properties.Password.eq(password));
+                    Buyer buyer = queryBuilder.unique();
+                    if (buyer!= null){
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this,BuyerActivity.class);
+                        intent.putExtra("buyerid",buyer.getId());
+                        startActivity(intent);
+                    }else
+                        Toast.makeText(LoginActivity.this,"账号或密码错误",Toast.LENGTH_SHORT).show();
                 }
             }
         });

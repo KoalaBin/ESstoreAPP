@@ -1,17 +1,12 @@
 package com.koalabee.esstore;
 
 import android.Manifest;
-import android.arch.lifecycle.ViewModelProvider;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.DocumentsContract;
-import android.provider.FontRequest;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -25,16 +20,15 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.Constants;
+import com.MyApplication;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
-import com.fragment.ClothesFragment;
 import com.table.Product;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.crypto.spec.OAEPParameterSpec;
 
 public class ProductActivity extends AppCompatActivity {
     private ImageButton ibtnProduct;
@@ -53,10 +47,7 @@ public class ProductActivity extends AppCompatActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE};
     private List<String> permissionsList = new ArrayList<>();
     private Boolean hasPermissionDismiss = false;
-    public static final String ADD_PRODUCT_SUCCESS = "com.koalabee.esstore.ProductActivity.add_product_success";
-    public static final int ADD_CLOTHES = 5;
-    public static final int ADD_FRUITS = 6;
-    public static final int ADD_DRINK = 7;
+
     String path = null;
 
 
@@ -217,20 +208,20 @@ public class ProductActivity extends AppCompatActivity {
 
                 if (product.getCategory() == Constants.TYPE_CLOTHES){
                     Intent intent = new Intent();
-                    intent.setAction(ProductActivity.ADD_PRODUCT_SUCCESS);
-                    intent.putExtra("user_type",ProductActivity.ADD_CLOTHES);
+                    intent.setAction(Constants.PRODUCT_EVENT);
+                    intent.putExtra("add_product",Constants.ADD_CLOTHES);
                     ProductActivity.this.sendBroadcast(intent);
                     finish();
                 }else if (product.getCategory() == Constants.TYPE_FRUIIT){
                     Intent intent = new Intent();
-                    intent.setAction(ProductActivity.ADD_PRODUCT_SUCCESS);
-                    intent.putExtra("user_type",ProductActivity.ADD_FRUITS);
+                    intent.setAction(Constants.PRODUCT_EVENT);
+                    intent.putExtra("add_product",Constants.ADD_FRUITS);
                     ProductActivity.this.sendBroadcast(intent);
                     finish();
                 }else if (product.getCategory() == Constants.TYPE_DRINK){
                     Intent intent = new Intent();
-                    intent.setAction(ProductActivity.ADD_PRODUCT_SUCCESS);
-                    intent.putExtra("user_type",ProductActivity.ADD_DRINK);
+                    intent.setAction(Constants.PRODUCT_EVENT);
+                    intent.putExtra("add_product",Constants.ADD_DRINK);
                     ProductActivity.this.sendBroadcast(intent);
                     finish();
                 }

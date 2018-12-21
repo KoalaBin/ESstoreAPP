@@ -1,7 +1,5 @@
 package com.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,14 +9,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.adapter.BuyerListAdapter;
 import com.adapter.SalerListAdapter;
-import com.anye.greendao.gen.BuyerDao;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.SalerDao;
 import com.example.koalabee.esstoreapp.R;
-import com.koalabee.esstore.MyApplication;
-import com.table.Buyer;
+import com.MyApplication;
 import com.table.Saler;
 
 import java.util.ArrayList;

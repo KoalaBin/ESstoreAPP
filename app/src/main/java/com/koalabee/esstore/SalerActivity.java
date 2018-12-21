@@ -12,13 +12,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.MyApplication;
+import com.SalerClass;
 import com.adapter.SalerAdapter;
-import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.SalerDao;
 import com.example.koalabee.esstoreapp.R;
 import com.table.Saler;
-
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;

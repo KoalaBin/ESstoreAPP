@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.MyApplication;
 import com.anye.greendao.gen.SalerDao;
 import com.bumptech.glide.Glide;
 import com.example.koalabee.esstoreapp.R;

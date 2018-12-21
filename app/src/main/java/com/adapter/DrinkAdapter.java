@@ -1,6 +1,7 @@
 package com.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +15,10 @@ import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.bumptech.glide.Glide;
 import com.example.koalabee.esstoreapp.R;
-import com.koalabee.esstore.Constants;
-import com.koalabee.esstore.MyApplication;
+import com.Constants;
+import com.MyApplication;
+import com.fragment.DrinkFragment;
+import com.koalabee.esstore.SaleProductInfoActivity;
 import com.table.Product;
 
 import java.util.List;
@@ -27,7 +30,6 @@ import java.util.List;
 public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> {
     private Context context;
     private List<Product> drinkList;
-
     static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
         ImageView productImg;
@@ -50,8 +52,19 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
             context = parent.getContext();
         }
         View view = LayoutInflater.from(context).inflate(R.layout.product_item,parent,false);
+        final DrinkAdapter.ViewHolder holder = new DrinkAdapter.ViewHolder(view);
+        holder.productImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = holder.productTxt.getText().toString();
+                Intent intent = new Intent(context, SaleProductInfoActivity.class);
+                intent.putExtra("product_name",name);
+                context.startActivity(intent);
+            }
+        });
         return new DrinkAdapter.ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -63,9 +76,10 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
         Glide.with(context).load(product.getPicpath()).into(holder.productImg);
     }
 
-
     @Override
     public int getItemCount() {
         return drinkList.size();
     }
+
+
 }

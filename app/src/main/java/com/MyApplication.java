@@ -1,4 +1,4 @@
-package com.koalabee.esstore;
+package com;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;

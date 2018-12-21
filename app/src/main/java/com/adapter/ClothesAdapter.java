@@ -1,7 +1,7 @@
 package com.adapter;
 
 import android.content.Context;
-import android.provider.MediaStore;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +15,11 @@ import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.bumptech.glide.Glide;
 import com.example.koalabee.esstoreapp.R;
-import com.koalabee.esstore.Constants;
-import com.koalabee.esstore.MyApplication;
+import com.Constants;
+import com.MyApplication;
+import com.koalabee.esstore.SaleProductInfoActivity;
 import com.table.Product;
 
-
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
@@ -55,6 +54,17 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
         }
 
         View view = LayoutInflater.from(context).inflate(R.layout.product_item,parent,false);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.productImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = holder.productTxt.getText().toString();
+                Intent intent = new Intent(context, SaleProductInfoActivity.class);
+                intent.putExtra("product_name",name);
+                context.startActivity(intent);
+            }
+        });
+
         return new ViewHolder(view);
     }
 

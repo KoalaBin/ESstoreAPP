@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.koalabee.esstore.MyApplication"
+        android:name="com.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,7 +25,10 @@
         <activity android:name="com.koalabee.esstore.SalerActivity" />
         <activity android:name="com.koalabee.esstore.ProductActivity" />
         <activity android:name="com.koalabee.esstore.OnSaleActivity" />
-        <activity android:name="com.koalabee.esstore.SalerInfoActivity"></activity>
+        <activity android:name="com.koalabee.esstore.SalerInfoActivity" />
+        <activity android:name="com.koalabee.esstore.BuyerActivity" />
+        <activity android:name="com.koalabee.esstore.SaleProductInfoActivity" />
+        <activity android:name="com.koalabee.esstore.BuyerProductInfoActivity"></activity>
     </application>
 
 </manifest>

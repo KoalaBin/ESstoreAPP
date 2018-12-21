@@ -3,10 +3,10 @@ package com.koalabee.esstore;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
 
+import com.MyApplication;
 import com.anye.greendao.gen.AdminDao;
 import com.anye.greendao.gen.DaoSession;
 import com.example.koalabee.esstoreapp.R;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
            admin.setName("admin");
            admin.setPassword("admin");
 
-           DaoSession daoSession=MyApplication.getInstances().getDaoSession();
+           DaoSession daoSession= MyApplication.getInstances().getDaoSession();
            AdminDao adminDao=daoSession.getAdminDao();
            adminDao.insert(admin);
 

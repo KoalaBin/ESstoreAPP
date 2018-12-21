@@ -12,11 +12,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.Constants;
 import com.example.koalabee.esstoreapp.R;
 import com.fragment.ClothesFragment;
 import com.fragment.DrinkFragment;
 import com.fragment.FruitFragment;
-import com.table.Product;
 
 public class OnSaleActivity extends AppCompatActivity {
     private Button clothes,fruit,drink;
@@ -36,7 +36,7 @@ public class OnSaleActivity extends AppCompatActivity {
         initViews();
         initEvents();
 
-        IntentFilter intentFilter = new IntentFilter(ProductActivity.ADD_PRODUCT_SUCCESS);
+        IntentFilter intentFilter = new IntentFilter(Constants.PRODUCT_EVENT);
         addProductBroadcast = new AddProductBroadcast();
         registerReceiver(addProductBroadcast,intentFilter);
     }
@@ -104,12 +104,13 @@ public class OnSaleActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            int userType = intent.getIntExtra("user_type",-1);
-            if (userType == ProductActivity.ADD_CLOTHES){
+            int addProduct = intent.getIntExtra("add_product",-1);
+            int outProduct = intent.getIntExtra("out_product",-1);
+            if (addProduct == Constants.ADD_CLOTHES || outProduct == Constants.OUT_CLOTHES){
                 clothesFragment.updateClothesList();
-            }else if (userType == ProductActivity.ADD_FRUITS){
+            }else if (addProduct== Constants.ADD_FRUITS || outProduct == Constants.OUT_FRUITS){
                 fruitFragment.updateFruitList();
-            }else if (userType == ProductActivity.ADD_DRINK){
+            }else if (addProduct == Constants.ADD_DRINK || outProduct == Constants.OUT_DRINK){
                 drinkFragment.updateDrinkList();
             }
 

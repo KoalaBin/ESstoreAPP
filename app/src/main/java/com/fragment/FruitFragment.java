@@ -1,8 +1,5 @@
 package com.fragment;
 
-import android.content.Context;
-import android.net.ProxyInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adapter.ClothesAdapter;
 import com.adapter.FruitAdapter;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
-import com.koalabee.esstore.Constants;
-import com.koalabee.esstore.MyApplication;
+import com.Constants;
+import com.MyApplication;
 import com.table.Product;
 
 import java.util.ArrayList;

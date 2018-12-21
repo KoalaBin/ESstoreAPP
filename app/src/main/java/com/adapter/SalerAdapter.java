@@ -10,9 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.koalabee.esstoreapp.R;
-import com.koalabee.esstore.SalerClass;
-
-import org.w3c.dom.Text;
+import com.SalerClass;
 
 import java.util.List;
 

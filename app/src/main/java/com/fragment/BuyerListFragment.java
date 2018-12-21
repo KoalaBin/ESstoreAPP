@@ -13,7 +13,7 @@ import com.adapter.BuyerListAdapter;
 import com.anye.greendao.gen.BuyerDao;
 import com.anye.greendao.gen.DaoSession;
 import com.example.koalabee.esstoreapp.R;
-import com.koalabee.esstore.MyApplication;
+import com.MyApplication;
 import com.table.Buyer;
 
 import java.util.ArrayList;

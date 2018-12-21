@@ -1,8 +1,6 @@
 package com.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,7 +16,7 @@ import com.anye.greendao.gen.SalerDao;
 import com.anye.greendao.gen.DaoSession;
 import com.example.koalabee.esstoreapp.R;
 import com.koalabee.esstore.AdminActivity;
-import com.koalabee.esstore.MyApplication;
+import com.MyApplication;
 import com.table.Buyer;
 import com.table.Saler;
 

@@ -1,4 +1,4 @@
-package com.koalabee.esstore;
+package com;
 
 /**
  * Created by Koala Bee on 2018/11/23.
