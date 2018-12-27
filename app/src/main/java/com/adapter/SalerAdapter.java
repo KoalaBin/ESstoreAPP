@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.koalabee.esstoreapp.R;
-import com.SalerClass;
+import com.UserClass;
 
 import java.util.List;
 
@@ -18,32 +18,31 @@ import java.util.List;
  * Created by Koala Bee on 2018/11/23.
  */
 
-public class SalerAdapter extends ArrayAdapter<SalerClass> {
+public class SalerAdapter extends ArrayAdapter<UserClass> {
     private View view;
     private TextView salerclasses;
-    private TextView salercount;
-    public SalerAdapter(@NonNull Context context, int resource, List<SalerClass> salerClasses) {
-        super(context, resource,salerClasses);
+    public SalerAdapter(@NonNull Context context, int resource, List<UserClass> userClasses) {
+        super(context, resource, userClasses);
 
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-       SalerClass salerClass = getItem(position);
+       UserClass salerClass = getItem(position);
        if (convertView == null)
        view = LayoutInflater.from(getContext()).inflate(R.layout.saler_item,parent,false);
        else{
            view = convertView;
        }
        salerclasses = view.findViewById(R.id.salerclasses);
-       salerclasses.setText(salerClass.getSale_class());
+       salerclasses.setText(salerClass.getUser_class());
        return view;
     }
 
     @Nullable
     @Override
-    public SalerClass getItem(int position) {
+    public UserClass getItem(int position) {
         return super.getItem(position);
     }
 }

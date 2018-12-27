@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.MyApplication;
-import com.SalerClass;
+import com.UserClass;
 import com.adapter.SalerAdapter;
 import com.anye.greendao.gen.SalerDao;
 import com.example.koalabee.esstoreapp.R;
@@ -25,11 +25,11 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SalerActivity extends AppCompatActivity {
-    private List<SalerClass> salerClasses = new ArrayList<>();
+    private List<UserClass> salerClasses = new ArrayList<>();
     private SalerAdapter salerAdapter;
     private ListView listView;
     private FloatingActionButton fabtnOnsale;
-    private CircleImageView headPic;
+    private CircleImageView salerheadpic;
     private TextView salerName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,24 +44,24 @@ public class SalerActivity extends AppCompatActivity {
         initViews();
         initEvents();
         initSalerClass();
-        setHeadpicName();
+        initHeadpicName();
 
-        salerAdapter = new SalerAdapter(this,R.layout.saler_item,salerClasses);
+        salerAdapter = new SalerAdapter(this,R.layout.saler_item, salerClasses);
         listView.setAdapter(salerAdapter);
 
     }
     //初始化头像和昵称
-    private void setHeadpicName() {
+    private void initHeadpicName() {
         Long saleId = getIntent().getLongExtra("salerid",-1);
         SalerDao salerDao = MyApplication.getInstances().getDaoSession().getSalerDao();
         Saler saler = salerDao.queryBuilder().where(SalerDao.Properties.Id.eq(saleId)).unique();
         if(saler.getPicPath() == null){
             salerName.setText(saler.getName());
-            headPic.setImageResource(R.mipmap.ic_launcher);
+            salerheadpic.setImageResource(R.mipmap.ic_launcher);
         }else{
             Bitmap bitmap = BitmapFactory.decodeFile(saler.getPicPath());
             salerName.setText(saler.getName());
-            headPic.setImageBitmap(bitmap);
+            salerheadpic.setImageBitmap(bitmap);
         }
 
     }
@@ -69,7 +69,7 @@ public class SalerActivity extends AppCompatActivity {
     private void initViews() {
         listView = findViewById(R.id.lv_salerclass);
         fabtnOnsale = findViewById(R.id.fabtn_onsale);
-        headPic = findViewById(R.id.headpic);
+        salerheadpic = findViewById(R.id.salerheadpic);
         salerName = findViewById(R.id.salername);
     }
 
@@ -106,11 +106,11 @@ public class SalerActivity extends AppCompatActivity {
     }
     //初始化卖家选项菜单
     private void initSalerClass() {
-        SalerClass onSale = new SalerClass("已上架商品");
+        UserClass onSale = new UserClass("已上架商品",null);
         salerClasses.add(onSale);
-        SalerClass saleOrder = new SalerClass("销售订单");
+        UserClass saleOrder = new UserClass("销售订单",null);
         salerClasses.add(saleOrder);
-        SalerClass saleData = new SalerClass("修改信息");
+        UserClass saleData = new UserClass("修改信息",null);
         salerClasses.add(saleData);
     }
 }

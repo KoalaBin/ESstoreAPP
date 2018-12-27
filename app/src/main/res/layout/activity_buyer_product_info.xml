@@ -106,9 +106,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
         android:layout_marginTop="84dp"
         android:text="库存："
         android:textSize="20sp"
@@ -143,46 +143,88 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="购买物品"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.939"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.984" />
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/tv_picount"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="购买数量："
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/tv1_pibuyerdescription"
-        app:layout_constraintEnd_toStartOf="@+id/et_picount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv2_pibuyerprice"
         app:layout_constraintVertical_bias="0.26" />
 
-    <EditText
-        android:id="@+id/et_picount"
+    <ImageButton
+        android:id="@+id/img_jia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/et_pibuyercount"
+        app:layout_constraintStart_toEndOf="@+id/tv_picount"
+        app:layout_constraintTop_toTopOf="@+id/et_pibuyercount"
+        app:srcCompat="@drawable/jia" />
+
+    <ImageButton
+        android:id="@+id/img_jian"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/tv_pibuyerdescription"
+        android:background="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/et_pibuyercount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toEndOf="@+id/img_jia"
+        app:layout_constraintTop_toTopOf="@+id/et_pibuyercount"
+        app:srcCompat="@drawable/jian" />
+
+    <TextView
+        android:id="@+id/et_pibuyercount"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:inputType="number"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_pibuyerdescription"
+        app:layout_constraintEnd_toStartOf="@+id/img_jian"
+        app:layout_constraintStart_toEndOf="@+id/img_jia"
+        app:layout_constraintTop_toBottomOf="@+id/tv1_pibuyerquantity" />
+
+    <Button
+        android:id="@+id/btn_pibuyershopcar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="加入购物车"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_pibuyerok"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_pibuyerquantity"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintTop_toTopOf="@+id/btn_pibuyerok" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="192dp" />
 
 </android.support.constraint.ConstraintLayout>

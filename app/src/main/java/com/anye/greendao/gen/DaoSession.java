@@ -10,11 +10,13 @@ import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.table.Admin;
 import com.table.Buyer;
+import com.table.Order;
 import com.table.Product;
 import com.table.Saler;
 
 import com.anye.greendao.gen.AdminDao;
 import com.anye.greendao.gen.BuyerDao;
+import com.anye.greendao.gen.OrderDao;
 import com.anye.greendao.gen.ProductDao;
 import com.anye.greendao.gen.SalerDao;
 
@@ -29,11 +31,13 @@ public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig adminDaoConfig;
     private final DaoConfig buyerDaoConfig;
+    private final DaoConfig orderDaoConfig;
     private final DaoConfig productDaoConfig;
     private final DaoConfig salerDaoConfig;
 
     private final AdminDao adminDao;
     private final BuyerDao buyerDao;
+    private final OrderDao orderDao;
     private final ProductDao productDao;
     private final SalerDao salerDao;
 
@@ -47,6 +51,9 @@ public class DaoSession extends AbstractDaoSession {
         buyerDaoConfig = daoConfigMap.get(BuyerDao.class).clone();
         buyerDaoConfig.initIdentityScope(type);
 
+        orderDaoConfig = daoConfigMap.get(OrderDao.class).clone();
+        orderDaoConfig.initIdentityScope(type);
+
         productDaoConfig = daoConfigMap.get(ProductDao.class).clone();
         productDaoConfig.initIdentityScope(type);
 
@@ -55,11 +62,13 @@ public class DaoSession extends AbstractDaoSession {
 
         adminDao = new AdminDao(adminDaoConfig, this);
         buyerDao = new BuyerDao(buyerDaoConfig, this);
+        orderDao = new OrderDao(orderDaoConfig, this);
         productDao = new ProductDao(productDaoConfig, this);
         salerDao = new SalerDao(salerDaoConfig, this);
 
         registerDao(Admin.class, adminDao);
         registerDao(Buyer.class, buyerDao);
+        registerDao(Order.class, orderDao);
         registerDao(Product.class, productDao);
         registerDao(Saler.class, salerDao);
     }
@@ -67,6 +76,7 @@ public class DaoSession extends AbstractDaoSession {
     public void clear() {
         adminDaoConfig.clearIdentityScope();
         buyerDaoConfig.clearIdentityScope();
+        orderDaoConfig.clearIdentityScope();
         productDaoConfig.clearIdentityScope();
         salerDaoConfig.clearIdentityScope();
     }
@@ -77,6 +87,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public BuyerDao getBuyerDao() {
         return buyerDao;
+    }
+
+    public OrderDao getOrderDao() {
+        return orderDao;
     }
 
     public ProductDao getProductDao() {

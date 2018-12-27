@@ -4,8 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,10 +20,12 @@ public class BuyerProductInfoActivity extends AppCompatActivity {
     private ImageView imgPiBuyer;
     private TextView piBuyerName;
     private TextView piBuyerPrice;
-    private EditText piBuyerCount;
+    private TextView piBuyerCount;
     private TextView piBuyerQuantity;
     private TextView piBuyerDescription;
     private Button piBuyerOk;
+    private ImageButton jia;
+    private ImageButton jian;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,28 @@ public class BuyerProductInfoActivity extends AppCompatActivity {
         piBuyerQuantity.setText(product.getQuantity().toString());
         piBuyerDescription.setText(product.getDescription());
 
+        jia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               int count = Integer.valueOf(piBuyerCount.getText().toString());
+               piBuyerCount.setText(count++);
+            }
+        });
+
+        jian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count = Integer.valueOf(piBuyerCount.getText().toString());
+                piBuyerCount.setText(count--);
+            }
+        });
+
+        piBuyerOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void initViews() {
@@ -51,7 +77,9 @@ public class BuyerProductInfoActivity extends AppCompatActivity {
         piBuyerQuantity = findViewById(R.id.tv_pibuyerquantity);
         piBuyerDescription = findViewById(R.id.tv_pibuyerdescription);
         piBuyerOk = findViewById(R.id.btn_pibuyerok);
-        piBuyerCount = findViewById(R.id.et_picount);
+        piBuyerCount = findViewById(R.id.et_pibuyercount);
+        jia = findViewById(R.id.img_jia);
+        jian = findViewById(R.id.img_jian);
     }
 
 }

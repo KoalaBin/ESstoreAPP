@@ -12,6 +12,7 @@ import com.anye.greendao.gen.SalerDao;
 import com.github.yuweiguocn.library.greendao.MigrationHelper;
 import com.table.Admin;
 import com.table.Buyer;
+import com.table.Order;
 
 import org.greenrobot.greendao.database.Database;
 
