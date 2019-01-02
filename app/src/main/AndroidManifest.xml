@@ -31,7 +31,10 @@
         <activity android:name="com.koalabee.esstore.BuyerProductInfoActivity" />
         <activity android:name="com.koalabee.esstore.BuyerPhoneNumActivity" />
         <activity android:name="com.koalabee.esstore.BuyerGenderActivity" />
-        <activity android:name="com.koalabee.esstore.BuyerAddressActivity"></activity>
+        <activity android:name="com.koalabee.esstore.BuyerAddressActivity" />
+        <activity android:name="com.koalabee.esstore.BuyerOrderActivity" />
+        <activity android:name="com.koalabee.esstore.BuyerOrderDetailActivity"></activity>
+
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@ android {
     }
 }
 greendao {
-    schemaVersion 17
+    schemaVersion 20
     daoPackage 'com.anye.greendao.gen'
     targetGenDir 'src/main/java'
 }

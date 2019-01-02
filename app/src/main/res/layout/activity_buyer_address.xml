@@ -9,43 +9,15 @@
 
     <include layout="@layout/buyer_info_title"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:id="@+id/tv_address_name"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="数据库"
             />
 
-        <TextView
-            android:id="@+id/tv_address_phonenum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:text="214345343"
-            android:layout_alignParentRight="true"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_marginTop="55dp"
-            android:layout_marginLeft="15dp"
-
-            />
-
-    </RelativeLayout>
 </LinearLayout>

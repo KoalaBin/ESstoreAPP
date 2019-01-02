@@ -16,4 +16,10 @@ public class Constants {
     public static final int OUT_FRUITS = 9;
     public static final int OUT_DRINK = 10;
 
+    public static final int USER_TYPE_BUYER= 1;
+    public static final int USER_TYPE_SALER = 2;
+
+    public static final int ORDER_STATUS_PAYED = 1;
+    public static final int ORDER_STATUS_SHOPPING_CAR = 2;
+
 }

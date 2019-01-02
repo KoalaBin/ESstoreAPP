@@ -1,5 +1,7 @@
 package com.fragment;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,18 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adapter.FruitAdapter;
+import com.Constants;
+import com.MyApplication;
+import com.adapter.BuyerFruitAdapter;
+import com.adapter.SalerFruitAdapter;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
-import com.Constants;
-import com.MyApplication;
 import com.table.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FruitFragment extends Fragment {
+
+public class BuyerFruitFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -27,14 +31,14 @@ public class FruitFragment extends Fragment {
     private View view;
     private RecyclerView rvOnsalePrduct;
     private List<Product> fruitList = new ArrayList<>();
-    private FruitAdapter fruitAdapter;
+    private BuyerFruitAdapter buyerFruitAdapter;
+
     private String mParam1;
     private String mParam2;
 
 
-
-    public static FruitFragment newInstance(String param1, String param2) {
-        FruitFragment fragment = new FruitFragment();
+    public static BuyerFruitFragment newInstance(String param1, String param2) {
+        BuyerFruitFragment fragment = new BuyerFruitFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -50,9 +54,11 @@ public class FruitFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_clothes,container,false);
         rvOnsalePrduct = view.findViewById(R.id.rv_onsaleproduct);
         DaoSession daoSession = MyApplication.getInstances().getDaoSession();
@@ -60,20 +66,9 @@ public class FruitFragment extends Fragment {
         fruitList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_FRUIIT)).list();
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         rvOnsalePrduct.setLayoutManager(layoutManager);
-        fruitAdapter = new FruitAdapter(fruitList);
-        rvOnsalePrduct.setAdapter(fruitAdapter);
+        buyerFruitAdapter = new BuyerFruitAdapter(fruitList);
+        rvOnsalePrduct.setAdapter(buyerFruitAdapter);
         return view;
     }
 
-    public void updateFruitList(){
-        DaoSession daoSession = MyApplication.getInstances().getDaoSession();
-        ProductDao productDao = daoSession.getProductDao();
-        fruitList.clear();
-        fruitList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_FRUIIT)).list();
-        fruitAdapter.notifyDataSetChanged();
-    }
-
-    }
-
-
-
+}

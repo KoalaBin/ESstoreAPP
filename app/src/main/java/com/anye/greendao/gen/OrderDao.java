@@ -25,6 +25,17 @@ public class OrderDao extends AbstractDao<Order, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
+        public final static Property ProductName = new Property(1, String.class, "productName", false, "PRODUCT_NAME");
+        public final static Property Quantity = new Property(2, Integer.class, "quantity", false, "QUANTITY");
+        public final static Property Price = new Property(3, Float.class, "price", false, "PRICE");
+        public final static Property TotalPrice = new Property(4, Float.class, "totalPrice", false, "TOTAL_PRICE");
+        public final static Property CreatedDate = new Property(5, String.class, "createdDate", false, "CREATED_DATE");
+        public final static Property BuyerId = new Property(6, Long.class, "BuyerId", false, "BUYER_ID");
+        public final static Property SalerId = new Property(7, Long.class, "SalerId", false, "SALER_ID");
+        public final static Property PicPath = new Property(8, String.class, "PicPath", false, "PIC_PATH");
+        public final static Property SalerName = new Property(9, String.class, "salerName", false, "SALER_NAME");
+        public final static Property Status = new Property(10, Integer.class, "status", false, "STATUS");
+        public final static Property Checked = new Property(11, Boolean.class, "checked", false, "CHECKED");
     }
 
 
@@ -40,7 +51,18 @@ public class OrderDao extends AbstractDao<Order, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ORDER\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT );"); // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
+                "\"PRODUCT_NAME\" TEXT NOT NULL ," + // 1: productName
+                "\"QUANTITY\" INTEGER NOT NULL ," + // 2: quantity
+                "\"PRICE\" REAL NOT NULL ," + // 3: price
+                "\"TOTAL_PRICE\" REAL NOT NULL ," + // 4: totalPrice
+                "\"CREATED_DATE\" TEXT NOT NULL ," + // 5: createdDate
+                "\"BUYER_ID\" INTEGER NOT NULL ," + // 6: BuyerId
+                "\"SALER_ID\" INTEGER NOT NULL ," + // 7: SalerId
+                "\"PIC_PATH\" TEXT," + // 8: PicPath
+                "\"SALER_NAME\" TEXT NOT NULL ," + // 9: salerName
+                "\"STATUS\" INTEGER NOT NULL ," + // 10: status
+                "\"CHECKED\" INTEGER NOT NULL );"); // 11: checked
     }
 
     /** Drops the underlying database table. */
@@ -57,6 +79,21 @@ public class OrderDao extends AbstractDao<Order, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
+        stmt.bindString(2, entity.getProductName());
+        stmt.bindLong(3, entity.getQuantity());
+        stmt.bindDouble(4, entity.getPrice());
+        stmt.bindDouble(5, entity.getTotalPrice());
+        stmt.bindString(6, entity.getCreatedDate());
+        stmt.bindLong(7, entity.getBuyerId());
+        stmt.bindLong(8, entity.getSalerId());
+ 
+        String PicPath = entity.getPicPath();
+        if (PicPath != null) {
+            stmt.bindString(9, PicPath);
+        }
+        stmt.bindString(10, entity.getSalerName());
+        stmt.bindLong(11, entity.getStatus());
+        stmt.bindLong(12, entity.getChecked() ? 1L: 0L);
     }
 
     @Override
@@ -67,6 +104,21 @@ public class OrderDao extends AbstractDao<Order, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
+        stmt.bindString(2, entity.getProductName());
+        stmt.bindLong(3, entity.getQuantity());
+        stmt.bindDouble(4, entity.getPrice());
+        stmt.bindDouble(5, entity.getTotalPrice());
+        stmt.bindString(6, entity.getCreatedDate());
+        stmt.bindLong(7, entity.getBuyerId());
+        stmt.bindLong(8, entity.getSalerId());
+ 
+        String PicPath = entity.getPicPath();
+        if (PicPath != null) {
+            stmt.bindString(9, PicPath);
+        }
+        stmt.bindString(10, entity.getSalerName());
+        stmt.bindLong(11, entity.getStatus());
+        stmt.bindLong(12, entity.getChecked() ? 1L: 0L);
     }
 
     @Override
@@ -77,7 +129,18 @@ public class OrderDao extends AbstractDao<Order, Long> {
     @Override
     public Order readEntity(Cursor cursor, int offset) {
         Order entity = new Order( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0) // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
+            cursor.getString(offset + 1), // productName
+            cursor.getInt(offset + 2), // quantity
+            cursor.getFloat(offset + 3), // price
+            cursor.getFloat(offset + 4), // totalPrice
+            cursor.getString(offset + 5), // createdDate
+            cursor.getLong(offset + 6), // BuyerId
+            cursor.getLong(offset + 7), // SalerId
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // PicPath
+            cursor.getString(offset + 9), // salerName
+            cursor.getInt(offset + 10), // status
+            cursor.getShort(offset + 11) != 0 // checked
         );
         return entity;
     }
@@ -85,6 +148,17 @@ public class OrderDao extends AbstractDao<Order, Long> {
     @Override
     public void readEntity(Cursor cursor, Order entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setProductName(cursor.getString(offset + 1));
+        entity.setQuantity(cursor.getInt(offset + 2));
+        entity.setPrice(cursor.getFloat(offset + 3));
+        entity.setTotalPrice(cursor.getFloat(offset + 4));
+        entity.setCreatedDate(cursor.getString(offset + 5));
+        entity.setBuyerId(cursor.getLong(offset + 6));
+        entity.setSalerId(cursor.getLong(offset + 7));
+        entity.setPicPath(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setSalerName(cursor.getString(offset + 9));
+        entity.setStatus(cursor.getInt(offset + 10));
+        entity.setChecked(cursor.getShort(offset + 11) != 0);
      }
     
     @Override

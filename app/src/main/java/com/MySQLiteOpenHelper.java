@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.anye.greendao.gen.AdminDao;
 import com.anye.greendao.gen.BuyerDao;
 import com.anye.greendao.gen.DaoMaster;
+import com.anye.greendao.gen.OrderDao;
 import com.anye.greendao.gen.ProductDao;
 import com.anye.greendao.gen.SalerDao;
 import com.github.yuweiguocn.library.greendao.MigrationHelper;
@@ -40,6 +41,6 @@ public class MySQLiteOpenHelper extends DaoMaster.DevOpenHelper {
             public void onDropAllTables(Database db, boolean ifExists) {
                 DaoMaster.dropAllTables(db, ifExists);
             }
-        },AdminDao.class,BuyerDao.class,SalerDao.class, ProductDao.class);
+        },AdminDao.class,BuyerDao.class,SalerDao.class, ProductDao.class, OrderDao.class);
     }
 }

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adapter.ClothesAdapter;
+import com.adapter.SalerClothesAdapter;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.example.koalabee.esstoreapp.R;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClothesFragment extends Fragment {
+public class SalerClothesFragment extends Fragment {
 
     private static final String SALE_ID = "saleid";
     private static final String ARG_PARAM2 = "param2";
@@ -28,14 +28,14 @@ public class ClothesFragment extends Fragment {
     private View view;
     private RecyclerView rvOnsalePrduct;
     private List<Product> clothesList = new ArrayList<>();
-    private ClothesAdapter clothesAdapter;
+    private SalerClothesAdapter salerClothesAdapter;
     private String mParam1;
     private String mParam2;
 
 
 
-    public static ClothesFragment newInstance(String param1, String param2) {
-       ClothesFragment fragment = new ClothesFragment();
+    public static SalerClothesFragment newInstance(String param1, String param2) {
+       SalerClothesFragment fragment = new SalerClothesFragment();
         Bundle args = new Bundle();
         args.putString(SALE_ID, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,8 +61,8 @@ public class ClothesFragment extends Fragment {
         clothesList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_CLOTHES)).list();
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         rvOnsalePrduct.setLayoutManager(layoutManager);
-        clothesAdapter = new ClothesAdapter(clothesList);
-        rvOnsalePrduct.setAdapter(clothesAdapter);
+        salerClothesAdapter = new SalerClothesAdapter(clothesList);
+        rvOnsalePrduct.setAdapter(salerClothesAdapter);
         return view;
     }
 
@@ -71,6 +71,6 @@ public class ClothesFragment extends Fragment {
         ProductDao productDao = daoSession.getProductDao();
         clothesList.clear();
         clothesList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_CLOTHES)).list();
-        clothesAdapter.notifyDataSetChanged();
+        salerClothesAdapter.notifyDataSetChanged();
     }
     }

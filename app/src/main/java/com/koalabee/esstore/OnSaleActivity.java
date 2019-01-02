@@ -14,15 +14,15 @@ import android.widget.Button;
 
 import com.Constants;
 import com.example.koalabee.esstoreapp.R;
-import com.fragment.ClothesFragment;
-import com.fragment.DrinkFragment;
-import com.fragment.FruitFragment;
+import com.fragment.SalerClothesFragment;
+import com.fragment.SalerDrinkFragment;
+import com.fragment.SalerFruitFragment;
 
 public class OnSaleActivity extends AppCompatActivity {
     private Button clothes,fruit,drink;
-    private ClothesFragment clothesFragment;
-    private FruitFragment fruitFragment;
-    private DrinkFragment drinkFragment;
+    private SalerClothesFragment salerClothesFragment;
+    private SalerFruitFragment salerFruitFragment;
+    private SalerDrinkFragment salerDrinkFragment;
     private AddProductBroadcast addProductBroadcast;
 
     @Override
@@ -47,9 +47,9 @@ public class OnSaleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction .hide(fruitFragment)
-                                    .hide(drinkFragment)
-                                    .show(clothesFragment)
+                fragmentTransaction .hide(salerFruitFragment)
+                                    .hide(salerDrinkFragment)
+                                    .show(salerClothesFragment)
                                     .commit();
             }
         });
@@ -59,9 +59,9 @@ public class OnSaleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction .hide(clothesFragment)
-                        .hide(drinkFragment)
-                        .show(fruitFragment)
+                fragmentTransaction .hide(salerClothesFragment)
+                        .hide(salerDrinkFragment)
+                        .show(salerFruitFragment)
                         .commit();
             }
         });
@@ -71,9 +71,9 @@ public class OnSaleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction .hide(fruitFragment)
-                        .hide(clothesFragment)
-                        .show(drinkFragment)
+                fragmentTransaction .hide(salerFruitFragment)
+                        .hide(salerClothesFragment)
+                        .show(salerDrinkFragment)
                         .commit();
             }
         });
@@ -84,17 +84,17 @@ public class OnSaleActivity extends AppCompatActivity {
         fruit = findViewById(R.id.fruit);
         drink = findViewById(R.id.drink);
 
-        clothesFragment = ClothesFragment.newInstance(null,null);
-        fruitFragment = FruitFragment.newInstance(null,null);
-        drinkFragment = DrinkFragment.newInstance(null,null);
+        salerClothesFragment = SalerClothesFragment.newInstance(null,null);
+        salerFruitFragment = SalerFruitFragment.newInstance(null,null);
+        salerDrinkFragment = SalerDrinkFragment.newInstance(null,null);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction .add(R.id.f2_content,clothesFragment)
-                            .add(R.id.f2_content,fruitFragment)
-                            .add(R.id.f2_content,drinkFragment)
-                            .hide(fruitFragment)
-                            .hide(drinkFragment)
+        fragmentTransaction .add(R.id.f2_content, salerClothesFragment)
+                            .add(R.id.f2_content, salerFruitFragment)
+                            .add(R.id.f2_content, salerDrinkFragment)
+                            .hide(salerFruitFragment)
+                            .hide(salerDrinkFragment)
                             .commit();
 
     }
@@ -107,11 +107,11 @@ public class OnSaleActivity extends AppCompatActivity {
             int addProduct = intent.getIntExtra("add_product",-1);
             int outProduct = intent.getIntExtra("out_product",-1);
             if (addProduct == Constants.ADD_CLOTHES || outProduct == Constants.OUT_CLOTHES){
-                clothesFragment.updateClothesList();
+                salerClothesFragment.updateClothesList();
             }else if (addProduct== Constants.ADD_FRUITS || outProduct == Constants.OUT_FRUITS){
-                fruitFragment.updateFruitList();
+                salerFruitFragment.updateFruitList();
             }else if (addProduct == Constants.ADD_DRINK || outProduct == Constants.OUT_DRINK){
-                drinkFragment.updateDrinkList();
+                salerDrinkFragment.updateDrinkList();
             }
 
         }

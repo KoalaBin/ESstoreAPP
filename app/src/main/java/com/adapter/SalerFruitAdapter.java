@@ -26,10 +26,10 @@ import java.util.List;
  * Created by Koala Bee on 2018/12/6.
  */
 
-public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
+public class SalerFruitAdapter extends RecyclerView.Adapter<SalerFruitAdapter.ViewHolder> {
     private Context context;
     private List<Product> fruitList;
-
+    private Long productId;
     static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
         ImageView productImg;
@@ -42,7 +42,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
 
         }
     }
-    public FruitAdapter(List<Product> fruitList){
+    public SalerFruitAdapter(List<Product> fruitList){
         this.fruitList = fruitList;
     }
     @NonNull
@@ -54,18 +54,17 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
 
         View view = LayoutInflater.from(context).inflate(R.layout.product_item,parent,false);
 
-        final FruitAdapter.ViewHolder holder = new FruitAdapter.ViewHolder(view);
+        final SalerFruitAdapter.ViewHolder holder = new SalerFruitAdapter.ViewHolder(view);
         holder.productImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = holder.productTxt.getText().toString();
                 Intent intent = new Intent(context, SaleProductInfoActivity.class);
-                intent.putExtra("product_name",name);
+                intent.putExtra("product_id",productId);
                 context.startActivity(intent);
             }
         });
 
-        return new FruitAdapter.ViewHolder(view);
+        return new SalerFruitAdapter.ViewHolder(view);
     }
 
     @Override
@@ -76,6 +75,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         Product product = fruitList.get(position);
         holder.productTxt.setText(product.getName());
         Glide.with(context).load(product.getPicpath()).into(holder.productImg);
+        productId = product.getId();
     }
 
 

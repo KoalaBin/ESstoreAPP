@@ -1,7 +1,5 @@
 package com.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,9 +24,9 @@ public class BuyerIndexFragment extends Fragment {
     private Button clothes;
     private Button fruit;
     private Button drink;
-    private ClothesFragment clothesFragment;
-    private FruitFragment fruitFragment;
-    private DrinkFragment drinkFragment;
+    private SalerClothesFragment salerClothesFragment;
+    private SalerFruitFragment salerFruitFragment;
+    private SalerDrinkFragment salerDrinkFragment;
 
     public static BuyerIndexFragment newInstance(String param1, String param2) {
         BuyerIndexFragment fragment = new BuyerIndexFragment();
@@ -56,17 +54,17 @@ public class BuyerIndexFragment extends Fragment {
        fruit = view.findViewById(R.id.buyerfruit);
        drink = view.findViewById(R.id.buyerdrink);
 
-        clothesFragment = ClothesFragment.newInstance(null,null);
-        fruitFragment = FruitFragment.newInstance(null,null);
-        drinkFragment = DrinkFragment.newInstance(null,null);
+        salerClothesFragment = SalerClothesFragment.newInstance(null,null);
+        salerFruitFragment = SalerFruitFragment.newInstance(null,null);
+        salerDrinkFragment = SalerDrinkFragment.newInstance(null,null);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction .add(R.id.f4_content,clothesFragment)
-                .add(R.id.f4_content,fruitFragment)
-                .add(R.id.f4_content,drinkFragment)
-                .hide(fruitFragment)
-                .hide(drinkFragment)
+        fragmentTransaction .add(R.id.f4_content, salerClothesFragment)
+                .add(R.id.f4_content, salerFruitFragment)
+                .add(R.id.f4_content, salerDrinkFragment)
+                .hide(salerFruitFragment)
+                .hide(salerDrinkFragment)
                 .commit();
 
         clothes.setOnClickListener(new View.OnClickListener() {
@@ -74,9 +72,9 @@ public class BuyerIndexFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction .hide(fruitFragment)
-                        .hide(drinkFragment)
-                        .show(clothesFragment)
+                fragmentTransaction .hide(salerFruitFragment)
+                        .hide(salerDrinkFragment)
+                        .show(salerClothesFragment)
                         .commit();
             }
         });
@@ -86,9 +84,9 @@ public class BuyerIndexFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction .hide(clothesFragment)
-                        .hide(drinkFragment)
-                        .show(fruitFragment)
+                fragmentTransaction .hide(salerClothesFragment)
+                        .hide(salerDrinkFragment)
+                        .show(salerFruitFragment)
                         .commit();
             }
         });
@@ -98,9 +96,9 @@ public class BuyerIndexFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction .hide(fruitFragment)
-                        .hide(clothesFragment)
-                        .show(drinkFragment)
+                fragmentTransaction .hide(salerFruitFragment)
+                        .hide(salerClothesFragment)
+                        .show(salerDrinkFragment)
                         .commit();
             }
         });

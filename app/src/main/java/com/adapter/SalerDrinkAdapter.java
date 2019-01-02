@@ -20,17 +20,16 @@ import com.MyApplication;
 import com.koalabee.esstore.SaleProductInfoActivity;
 import com.table.Product;
 
-
 import java.util.List;
 
 /**
- * Created by Koala Bee on 2018/12/3.
+ * Created by Koala Bee on 2018/12/6.
  */
 
-public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHolder> {
+public class SalerDrinkAdapter extends RecyclerView.Adapter<SalerDrinkAdapter.ViewHolder> {
     private Context context;
-    private List<Product> clothesList;
-
+    private List<Product> drinkList;
+    private Long productId;
     static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
         ImageView productImg;
@@ -43,8 +42,8 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
 
         }
     }
-    public ClothesAdapter(List<Product> clothesList){
-        this.clothesList = clothesList;
+    public SalerDrinkAdapter(List<Product> drinkList){
+        this.drinkList = drinkList;
     }
     @NonNull
     @Override
@@ -52,34 +51,36 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
         if (context == null){
             context = parent.getContext();
         }
-
         View view = LayoutInflater.from(context).inflate(R.layout.product_item,parent,false);
-        final ViewHolder holder = new ViewHolder(view);
+        final SalerDrinkAdapter.ViewHolder holder = new SalerDrinkAdapter.ViewHolder(view);
         holder.productImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = holder.productTxt.getText().toString();
+
                 Intent intent = new Intent(context, SaleProductInfoActivity.class);
-                intent.putExtra("product_name",name);
+                intent.putExtra("product_id",productId);
                 context.startActivity(intent);
             }
         });
-
-        return new ViewHolder(view);
+        return new SalerDrinkAdapter.ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DaoSession daoSession = MyApplication.getInstances().getDaoSession();
         ProductDao productDao = daoSession.getProductDao();
-        clothesList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_CLOTHES)).list();
-        Product product = clothesList.get(position);
+        drinkList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_DRINK)).list();
+        Product product = drinkList.get(position);
         holder.productTxt.setText(product.getName());
         Glide.with(context).load(product.getPicpath()).into(holder.productImg);
+        productId = product.getId();
     }
 
     @Override
     public int getItemCount() {
-        return clothesList.size();
+        return drinkList.size();
     }
+
+
 }

@@ -22,6 +22,9 @@ import com.adapter.BuyerAdapter;
 import com.adapter.SalerAdapter;
 import com.anye.greendao.gen.BuyerDao;
 import com.example.koalabee.esstoreapp.R;
+import com.koalabee.esstore.BuyerAddressActivity;
+import com.koalabee.esstore.BuyerGenderActivity;
+import com.koalabee.esstore.BuyerOrderActivity;
 import com.koalabee.esstore.BuyerPhoneNumActivity;
 import com.table.Buyer;
 
@@ -90,11 +93,21 @@ public class PersonalBuyerFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
+                        Intent order = new Intent(getActivity(), BuyerOrderActivity.class);
+                        order.putExtra("buyerid",buyerId);
+                        startActivity(order);
                     case 1:
+                        Intent gender = new Intent(getActivity(), BuyerGenderActivity.class);
+                        gender.putExtra("buyerid",buyerId);
+                        startActivity(gender);
                     case 2:
-                        Intent intent = new Intent(getActivity(), BuyerPhoneNumActivity.class);
-                        intent.putExtra("buyerid",buyerId);
-                        startActivity(intent);
+                        Intent num = new Intent(getActivity(), BuyerPhoneNumActivity.class);
+                        num.putExtra("buyerid",buyerId);
+                        startActivity(num);
+                    case 3:
+                        Intent address = new Intent(getActivity(), BuyerAddressActivity.class);
+                        address.putExtra("buyerid",buyerId);
+                        startActivity(address);
                 }
             }
         });
