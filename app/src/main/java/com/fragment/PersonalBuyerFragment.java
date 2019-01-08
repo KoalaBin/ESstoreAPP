@@ -49,6 +49,7 @@ public class PersonalBuyerFragment extends Fragment {
     private CircleImageView buyerheadPic;
     private TextView buyerName;
     private View view;
+    private Long buyerId;
 
 
     public static PersonalBuyerFragment newInstance(String param1, String param2) {
@@ -87,7 +88,6 @@ public class PersonalBuyerFragment extends Fragment {
     }
 
     private void initEvents() {
-       final Long buyerId = getActivity().getIntent().getLongExtra("buyerid",-1);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -96,18 +96,22 @@ public class PersonalBuyerFragment extends Fragment {
                         Intent order = new Intent(getActivity(), BuyerOrderActivity.class);
                         order.putExtra("buyerid",buyerId);
                         startActivity(order);
+                        break;
                     case 1:
                         Intent gender = new Intent(getActivity(), BuyerGenderActivity.class);
                         gender.putExtra("buyerid",buyerId);
                         startActivity(gender);
+                        break;
                     case 2:
                         Intent num = new Intent(getActivity(), BuyerPhoneNumActivity.class);
                         num.putExtra("buyerid",buyerId);
                         startActivity(num);
+                        break;
                     case 3:
                         Intent address = new Intent(getActivity(), BuyerAddressActivity.class);
                         address.putExtra("buyerid",buyerId);
                         startActivity(address);
+                        break;
                 }
             }
         });
@@ -115,7 +119,7 @@ public class PersonalBuyerFragment extends Fragment {
 
     private void initBuyerClass() {
 
-        Long buyerId = getActivity().getIntent().getLongExtra("buyerid",-1);
+        buyerId = getActivity().getIntent().getLongExtra("buyerid",-1);
         BuyerDao buyerDao = MyApplication.getInstances().getDaoSession().getBuyerDao();
         Buyer buyer = buyerDao.queryBuilder().where(BuyerDao.Properties.Id.eq(buyerId)).unique();
 

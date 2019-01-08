@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.koalabee.esstoreapp.R;
 import com.Constants;
 import com.MyApplication;
+import com.koalabee.esstore.BuyerActivity;
 import com.koalabee.esstore.SaleProductInfoActivity;
 import com.table.Product;
 
@@ -58,8 +59,6 @@ public class SalerClothesAdapter extends RecyclerView.Adapter<SalerClothesAdapte
         holder.productImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent intent = new Intent(context, SaleProductInfoActivity.class);
                 intent.putExtra("product_id",productId);
                 context.startActivity(intent);

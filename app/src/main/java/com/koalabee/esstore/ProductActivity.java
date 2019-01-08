@@ -180,8 +180,7 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent1 = new Intent();
-                Long saleid = intent1.getLongExtra("saleid",-1);
+               Long salerid = getIntent().getLongExtra("salerid",-1);
                 String pdName = etProductName.getText().toString();
                 Float pdPrice = Float.parseFloat(etProductPrice.getText().toString());
                 String pdDescription = etProductDescription.getText().toString();
@@ -198,7 +197,7 @@ public class ProductActivity extends AppCompatActivity {
                 ProductDao productDao = daoSession.getProductDao();
                 Product product = new Product();
                 product.setPicpath(path);
-                product.setSaleId(saleid);
+                product.setSaleId(salerid);
                 product.setName(pdName);
                 product.setPrice(pdPrice);
                 product.setDescription(pdDescription);

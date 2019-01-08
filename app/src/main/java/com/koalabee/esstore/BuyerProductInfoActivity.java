@@ -43,13 +43,14 @@ public class BuyerProductInfoActivity extends AppCompatActivity {
     private ImageButton jian;
     private Saler saler;
     private Product product;
-    private Long salerId;
+    private Long salerId,buyerId,productId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer_product_info);
-        Long productId = getIntent().getLongExtra("product_id", -1);
+        productId = getIntent().getLongExtra("product_id", -1);
+        buyerId = getIntent().getLongExtra("buyerid",-1);
         ProductDao productDao = MyApplication.getInstances().getDaoSession().getProductDao();
         product = productDao.queryBuilder().where(ProductDao.Properties.Id.eq(productId)).unique();
         initViews();
@@ -62,7 +63,8 @@ public class BuyerProductInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int count = Integer.valueOf(piBuyerCount.getText().toString());
-                piBuyerCount.setText(count++);
+                piBuyerCount.setText(String.valueOf(count++));
+
             }
         });
 
@@ -72,7 +74,7 @@ public class BuyerProductInfoActivity extends AppCompatActivity {
                 int count = Integer.valueOf(piBuyerCount.getText().toString());
                 if (count <= 1)
                     jian.setClickable(false);
-                piBuyerCount.setText(count--);
+                piBuyerCount.setText(String.valueOf(count--));
 
 
             }
@@ -100,6 +102,8 @@ public class BuyerProductInfoActivity extends AppCompatActivity {
                 order.setQuantity(quantity);
                 order.setTotalPrice(totalPrice);
                 order.setCreatedDate(date);
+                order.setBuyerId(buyerId);
+                order.setSalerId(salerId);
                 order.setSalerName(saler.getName());
                 order.setPicPath(product.getPicpath());
                 order.setStatus(Constants.ORDER_STATUS_PAYED);
@@ -110,6 +114,7 @@ public class BuyerProductInfoActivity extends AppCompatActivity {
                 final DaoSession daoSession = MyApplication.getInstances().getDaoSession();
                 daoSession.callInTxNoException(new Callable<Object>() {
                     @Override
+
                     public Object call() throws Exception {
                         OrderDao orderDao = daoSession.getOrderDao();
                         orderDao.insert(order);

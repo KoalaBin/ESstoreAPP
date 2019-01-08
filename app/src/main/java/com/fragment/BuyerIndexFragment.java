@@ -24,9 +24,9 @@ public class BuyerIndexFragment extends Fragment {
     private Button clothes;
     private Button fruit;
     private Button drink;
-    private SalerClothesFragment salerClothesFragment;
-    private SalerFruitFragment salerFruitFragment;
-    private SalerDrinkFragment salerDrinkFragment;
+    private BuyerClothesFragment buyerClothesFragment;
+    private BuyerFruitFragment buyerFruitFragment;
+    private BuyerDrinkFragment buyerDrinkFragment;
 
     public static BuyerIndexFragment newInstance(String param1, String param2) {
         BuyerIndexFragment fragment = new BuyerIndexFragment();
@@ -54,17 +54,17 @@ public class BuyerIndexFragment extends Fragment {
        fruit = view.findViewById(R.id.buyerfruit);
        drink = view.findViewById(R.id.buyerdrink);
 
-        salerClothesFragment = SalerClothesFragment.newInstance(null,null);
-        salerFruitFragment = SalerFruitFragment.newInstance(null,null);
-        salerDrinkFragment = SalerDrinkFragment.newInstance(null,null);
+        buyerClothesFragment = BuyerClothesFragment.newInstance(null,null);
+        buyerFruitFragment = BuyerFruitFragment.newInstance(null,null);
+        buyerDrinkFragment = BuyerDrinkFragment.newInstance(null,null);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction .add(R.id.f4_content, salerClothesFragment)
-                .add(R.id.f4_content, salerFruitFragment)
-                .add(R.id.f4_content, salerDrinkFragment)
-                .hide(salerFruitFragment)
-                .hide(salerDrinkFragment)
+        fragmentTransaction .add(R.id.f4_content, buyerClothesFragment)
+                .add(R.id.f4_content, buyerFruitFragment)
+                .add(R.id.f4_content, buyerDrinkFragment)
+                .hide(buyerFruitFragment)
+                .hide(buyerDrinkFragment)
                 .commit();
 
         clothes.setOnClickListener(new View.OnClickListener() {
@@ -72,9 +72,9 @@ public class BuyerIndexFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction .hide(salerFruitFragment)
-                        .hide(salerDrinkFragment)
-                        .show(salerClothesFragment)
+                fragmentTransaction .hide(buyerFruitFragment)
+                        .hide(buyerDrinkFragment)
+                        .show(buyerClothesFragment)
                         .commit();
             }
         });
@@ -84,9 +84,9 @@ public class BuyerIndexFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction .hide(salerClothesFragment)
-                        .hide(salerDrinkFragment)
-                        .show(salerFruitFragment)
+                fragmentTransaction .hide(buyerClothesFragment)
+                        .hide(buyerDrinkFragment)
+                        .show(buyerFruitFragment)
                         .commit();
             }
         });
@@ -96,9 +96,9 @@ public class BuyerIndexFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction .hide(salerFruitFragment)
-                        .hide(salerClothesFragment)
-                        .show(salerDrinkFragment)
+                fragmentTransaction .hide(buyerFruitFragment)
+                        .hide(buyerClothesFragment)
+                        .show(buyerDrinkFragment)
                         .commit();
             }
         });

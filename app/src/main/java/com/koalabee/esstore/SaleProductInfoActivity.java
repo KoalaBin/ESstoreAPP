@@ -36,9 +36,9 @@ public class SaleProductInfoActivity extends AppCompatActivity {
     }
 
     private void initInfo() {
-        String name = getIntent().getStringExtra("product_name");
+        Long productid = getIntent().getLongExtra("product_id",-1);
         final ProductDao productDao = MyApplication.getInstances().getDaoSession().getProductDao();
-        final Product product = productDao.queryBuilder().where(ProductDao.Properties.Name.eq(name)).unique();
+        final Product product = productDao.queryBuilder().where(ProductDao.Properties.Id.eq(productid)).unique();
         Bitmap bitmap = BitmapFactory.decodeFile(product.getPicpath());
         imgPiSaler.setImageBitmap(bitmap);
         piSalerName.setText(product.getName());

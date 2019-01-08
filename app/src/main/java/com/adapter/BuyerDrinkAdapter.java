@@ -13,10 +13,12 @@ import android.widget.TextView;
 
 import com.Constants;
 import com.MyApplication;
+import com.anye.greendao.gen.BuyerDao;
 import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.bumptech.glide.Glide;
 import com.example.koalabee.esstoreapp.R;
+import com.koalabee.esstore.BuyerActivity;
 import com.koalabee.esstore.BuyerProductInfoActivity;
 import com.table.Product;
 
@@ -30,6 +32,7 @@ public class BuyerDrinkAdapter extends RecyclerView.Adapter<BuyerDrinkAdapter.Vi
     private Context context;
     private List<Product> drinkList;
     private Long productId;
+    BuyerActivity buyerActivity = new BuyerActivity();
     static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
         ImageView productImg;
@@ -39,7 +42,6 @@ public class BuyerDrinkAdapter extends RecyclerView.Adapter<BuyerDrinkAdapter.Vi
             cardView = (CardView)view;
             productImg = view.findViewById(R.id.img_product);
             productTxt = view.findViewById(R.id.txt_product);
-
         }
     }
 
@@ -60,6 +62,7 @@ public class BuyerDrinkAdapter extends RecyclerView.Adapter<BuyerDrinkAdapter.Vi
             public void onClick(View v) {
                 Intent intent = new Intent(context, BuyerProductInfoActivity.class);
                 intent.putExtra("product_id",productId);
+                intent.putExtra("buyerid",buyerActivity.getBuyerid());
                 context.startActivity(intent);
 
             }
@@ -82,6 +85,9 @@ public class BuyerDrinkAdapter extends RecyclerView.Adapter<BuyerDrinkAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return drinkList.size();
+        if (drinkList == null)
+            return 0;
+        else
+            return drinkList.size();
     }
 }

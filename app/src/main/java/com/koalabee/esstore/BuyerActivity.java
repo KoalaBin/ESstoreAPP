@@ -21,6 +21,12 @@ public class BuyerActivity extends AppCompatActivity {
     private BuyerIndexFragment buyerIndexFragment;
     private ShopCarFragment shopCarFragment;
     private PersonalBuyerFragment personalBuyerFragment;
+    public Long buyerid;
+
+    public Long getBuyerid() {
+        return buyerid;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +38,7 @@ public class BuyerActivity extends AppCompatActivity {
 
         initViews();
         initEvents();
+        buyerid = getIntent().getLongExtra("buyerid",-1);
     }
 
     private void initEvents() {

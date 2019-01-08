@@ -3,6 +3,7 @@ package com.koalabee.esstore;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,9 @@ public class BuyerOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer_order);
+        IntentFilter intentFilter = new IntentFilter(BuyerProductInfoActivity.UPDATE_ORDER_LIST);
+        receiver = new UpdateOrderListReceiver();
+        registerReceiver(receiver, intentFilter);
         initViews();
         initEvents();
 

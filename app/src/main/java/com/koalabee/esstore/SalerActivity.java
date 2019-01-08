@@ -31,6 +31,7 @@ public class SalerActivity extends AppCompatActivity {
     private FloatingActionButton fabtnOnsale;
     private CircleImageView salerheadpic;
     private TextView salerName;
+    private Long salerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +53,9 @@ public class SalerActivity extends AppCompatActivity {
     }
     //初始化头像和昵称
     private void initHeadpicName() {
-        Long saleId = getIntent().getLongExtra("salerid",-1);
+        salerId = getIntent().getLongExtra("salerid",-1);
         SalerDao salerDao = MyApplication.getInstances().getDaoSession().getSalerDao();
-        Saler saler = salerDao.queryBuilder().where(SalerDao.Properties.Id.eq(saleId)).unique();
+        Saler saler = salerDao.queryBuilder().where(SalerDao.Properties.Id.eq(salerId)).unique();
         if(saler.getPicPath() == null){
             salerName.setText(saler.getName());
             salerheadpic.setImageResource(R.mipmap.ic_launcher);
@@ -78,6 +79,7 @@ public class SalerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SalerActivity.this,ProductActivity.class);
+                intent.putExtra("salerid",salerId);
                 startActivity(intent);
             }
         });

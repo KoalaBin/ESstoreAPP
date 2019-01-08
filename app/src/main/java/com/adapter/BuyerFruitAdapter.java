@@ -17,6 +17,7 @@ import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.bumptech.glide.Glide;
 import com.example.koalabee.esstoreapp.R;
+import com.koalabee.esstore.BuyerActivity;
 import com.koalabee.esstore.BuyerProductInfoActivity;
 import com.table.Product;
 
@@ -28,8 +29,9 @@ import java.util.List;
 
 public class BuyerFruitAdapter extends RecyclerView.Adapter<BuyerFruitAdapter.ViewHolder> {
     private Context context;
-    private List<Product> fruitlList;
+    private List<Product> fruitList;
     private Long productId;
+    BuyerActivity buyerActivity = new BuyerActivity();
     static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
         ImageView productImg;
@@ -44,7 +46,7 @@ public class BuyerFruitAdapter extends RecyclerView.Adapter<BuyerFruitAdapter.Vi
     }
 
     public BuyerFruitAdapter(List<Product> fruitList){
-        this.fruitlList = fruitlList;
+        this.fruitList = fruitList;
     }
     @NonNull
     @Override
@@ -60,6 +62,7 @@ public class BuyerFruitAdapter extends RecyclerView.Adapter<BuyerFruitAdapter.Vi
             public void onClick(View v) {
                 Intent intent = new Intent(context, BuyerProductInfoActivity.class);
                 intent.putExtra("product_id",productId);
+                intent.putExtra("buyerid",buyerActivity.getBuyerid());
                 context.startActivity(intent);
 
             }
@@ -72,8 +75,8 @@ public class BuyerFruitAdapter extends RecyclerView.Adapter<BuyerFruitAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DaoSession daoSession = MyApplication.getInstances().getDaoSession();
         ProductDao productDao = daoSession.getProductDao();
-        fruitlList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_FRUIIT)).list();
-        Product product = fruitlList.get(position);
+        fruitList = productDao.queryBuilder().where(ProductDao.Properties.Category.eq(Constants.TYPE_FRUIIT)).list();
+        Product product = fruitList.get(position);
         holder.productTxt.setText(product.getName());
         Glide.with(context).load(product.getPicpath()).into(holder.productImg);
         productId = product.getId();
@@ -81,6 +84,9 @@ public class BuyerFruitAdapter extends RecyclerView.Adapter<BuyerFruitAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return fruitlList.size();
+        if (fruitList == null)
+            return 0;
+        else
+        return fruitList.size();
     }
 }

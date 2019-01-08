@@ -18,6 +18,7 @@ import com.anye.greendao.gen.DaoSession;
 import com.anye.greendao.gen.ProductDao;
 import com.bumptech.glide.Glide;
 import com.example.koalabee.esstoreapp.R;
+import com.koalabee.esstore.BuyerActivity;
 import com.koalabee.esstore.BuyerProductInfoActivity;
 import com.koalabee.esstore.SaleProductInfoActivity;
 import com.table.Product;
@@ -33,7 +34,7 @@ public class BuyerClothesAdapter extends RecyclerView.Adapter<BuyerClothesAdapte
     private Context context;
     private List<Product> clothesList;
     private Long productId;
-
+    BuyerActivity buyerActivity = new BuyerActivity();
     static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
         ImageView productImg;
@@ -64,6 +65,7 @@ public class BuyerClothesAdapter extends RecyclerView.Adapter<BuyerClothesAdapte
             public void onClick(View v) {
                 Intent intent = new Intent(context, BuyerProductInfoActivity.class);
                 intent.putExtra("product_id",productId);
+                intent.putExtra("buyerid",buyerActivity.getBuyerid());
                 context.startActivity(intent);
             }
         });
@@ -85,6 +87,9 @@ public class BuyerClothesAdapter extends RecyclerView.Adapter<BuyerClothesAdapte
 
     @Override
     public int getItemCount() {
-        return clothesList.size();
+        if (clothesList == null)
+            return 0;
+        else
+            return clothesList.size();
     }
 }
